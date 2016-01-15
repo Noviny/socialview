@@ -21,6 +21,9 @@ class PagesController < ApplicationController
   def edit
   end
 
+  def info
+  end
+
   # POST /pages
   # POST /pages.json
   def create
