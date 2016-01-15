@@ -1,0 +1,24 @@
+#main {
+  border: 1px solid red;
+  width: 70.3vw;
+  height: 100vh;
+  text-align: center;
+  margin: auto;
+  position: fixed;
+  top: 51px;
+  right: 15.5%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 50px;
+  height: 100vh;
+}
+
+.left-sidebar {
+  left: 0;
+}
+
+.right-sidebar {
+  right: 0;
+}
