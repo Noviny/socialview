@@ -2,6 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<%= render :partial => 'map' %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,6 +12,7 @@
     </tr>
   </thead>
   <tbody>
+
     <% @pages.each do |page| %>
       <tr>
         <td><%= link_to page.id, page_path(page) %></td>
@@ -32,3 +34,19 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_page_path,
             :class => 'btn btn-primary' %>
+
+<script>
+  $(document).ready(function () {
+
+    handler.buildMap({
+      provider: {},
+      internal: { id: 'map' }},
+      function(){
+        markers = handler.addMarkers( markers );
+        handler.map.centerOn( markers[0] );
+        handler.getMap().setZoom(11);
+      }
+    );
+
+  });
+</script>

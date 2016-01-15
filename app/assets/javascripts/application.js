@@ -15,4 +15,5 @@
 //= require twitter/bootstrap
 //= require lib/underscore
 //= require lib/backbone
+//= require gmaps/google
 //= require_tree .
