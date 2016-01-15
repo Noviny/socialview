@@ -1,8 +1,9 @@
 $(document).ready( function () {
-  console.log("document ready")
-  console.log($(".navbar-form")[0])
-  $(".navbar-form").on('keyup', function () {
-    searchFor = $(".form-control")[0].val
-    console.log(searchFor)
+  console.log($("#search"))
+  //Get form contents
+  $("#search").on('keyup', function () {
+    searchFor = $("#search-result").val()
+    //searchFor will return the result of the search bar wherever you want it.
+    //Currently programmed to make search for on each keypress.
   })
 })
