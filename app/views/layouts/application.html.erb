@@ -13,9 +13,11 @@
     <!-- Size should be 144 x 144 pixels -->
     <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
 
+
     <!-- For iPhone with high-resolution Retina display: -->
     <!-- Size should be 114 x 114 pixels -->
     <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
 
     <!-- For first- and second-generation iPad: -->
     <!-- Size should be 72 x 72 pixels -->
@@ -55,8 +57,8 @@
         </div>
       </div>
     </div>
-    <%= render :partial => 'navbar' %>
-    <%= render :partial => 'leftSidebar' %>
+    <%= render :partial => 'layouts/navbar' %>
+    <%= render :partial => 'layouts/leftSidebar' %>
 
     <div class="container">
       <div class="row">
@@ -64,7 +66,7 @@
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-        <%= render :partial => 'rightSidebar' %>
+    <%= render :partial => 'layouts/rightSidebar' %>
         <div class="col-lg-3">
           <div class="well sidebar-nav">
             <h3>Sidebar</h3>
