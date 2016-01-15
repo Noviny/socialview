@@ -34,17 +34,13 @@
     <![endif]-->
   </head>
   <body>
-
     <%= render :partial => 'layouts/navbar' %>
-
-      <%= render :partial => 'layouts/leftSidebar' %>
-      <%= bootstrap_flash %>
-
-      <div class="container">
-        <%= yield %>
-      </div>
-
-      <%= render :partial => 'layouts/rightSidebar' %>
+    <%= render :partial => 'layouts/leftSidebar' %>
+    <%= bootstrap_flash %>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <%= render :partial => 'layouts/rightSidebar' %>
     <footer></footer>
   </body>
 </html>
