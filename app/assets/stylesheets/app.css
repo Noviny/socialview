@@ -49,3 +49,9 @@
   height: 30%;
   text-align: center;
 }
+
+#info {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 150px
+}

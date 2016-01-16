@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
-handler = Gmaps.build('Google');
-handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+
   // markers = handler.addMarkers([
   //   {
   //     "lat": -33.8692490,
@@ -16,6 +15,5 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   // ]);
   // handler.bounds.extendWith(markers);
   // handler.fitMapToBounds();
-});
 
- });
+});
