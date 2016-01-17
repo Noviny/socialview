@@ -65,15 +65,11 @@ $(document).ready(function () {
 
   function setInstPostMarkers(map, instPosts) {
     var markers = [];
-    var i = 0
+    var i = 0;
     _.each(instPosts, function (eachPost) {
       var image = {
         url: eachPost[3],
         scaledSize: new google.maps.Size(64, 64),
-      };
-      var shape = {
-       coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
-       type: 'poly'
       };
       var pos = new google.maps.LatLng(
           eachPost[0], eachPost[1]);
@@ -96,11 +92,20 @@ $(document).ready(function () {
         position: pos,
         map: map,
         icon: image,
-        shape: shape,
+      //  animation: google.maps.Animation.BOUNCE,
         zIndex: 2,
-        title: eachPost[2]
+        title: eachPost[2],
+        optimized: false      //To allow marker custom in css
       });
 
+      // Apply custom css for marker
+      var myoverlay = new google.maps.OverlayView();
+      myoverlay.draw = function () {
+         this.getPanes().markerLayer.id='markerLayer';
+      };
+      myoverlay.setMap(map);
+
+      // Click event on Instagram Image
       google.maps.event.addListener(
           marker, 'click',
           function() {
@@ -109,4 +114,5 @@ $(document).ready(function () {
       markers.push(marker);
     });
   }
+
 });
