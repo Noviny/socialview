@@ -1,21 +1,82 @@
- $(document).ready(function () {
-  console.log()
-handler = Gmaps.build('Google');
-handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-  markers = handler.addMarkers([
-    {
-      "lat": -33.8692490,
-      "lng": 151.2063130,
-      "picture": {
-        // "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-        "width":  32,
-        "height": 32
-      },
-      "infowindow": "test"
-    }
-  ]);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-});
-
- });
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 3
+  });
+ map.set('styles', [{
+      "featureType": "landscape",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "lightness": 65
+      }, {
+          "visibility": "on"
+      }]
+  }, {
+      "featureType": "poi",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "lightness": 51
+      }, {
+          "visibility": "simplified"
+      }]
+  }, {
+      "featureType": "road.highway",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "visibility": "simplified"
+      }]
+  }, {
+      "featureType": "road.arterial",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "lightness": 30
+      }, {
+          "visibility": "on"
+      }]
+  }, {
+      "featureType": "road.local",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "lightness": 40
+      }, {
+          "visibility": "on"
+      }]
+  }, {
+      "featureType": "transit",
+      "stylers": [{
+          "saturation": -100
+      }, {
+          "visibility": "simplified"
+      }]
+  }, {
+      "featureType": "administrative.province",
+      "stylers": [{
+          "visibility": "off"
+      }]
+  }, {
+      "featureType": "water",
+      "elementType": "labels",
+      "stylers": [{
+          "visibility": "on"
+      }, {
+          "lightness": -25
+      }, {
+          "saturation": -100
+      }]
+  }, {
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [{
+          "hue": "#ffff00"
+      }, {
+          "lightness": -25
+      }, {
+          "saturation": -97
+      }]
+  }])}

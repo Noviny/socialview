@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'instagram'
 gem 'therubyracer'
 gem 'less-rails'
