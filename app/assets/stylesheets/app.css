@@ -27,16 +27,12 @@
   padding: 0;
 }
 
-
 /*//// SIDEBARS GENERAL ////*/
 
 .sidebar {
   position: fixed;
   top: 50px;
   height: 100vh;
-}
-
-.sidebar {
   padding: none;
 }
 
@@ -46,7 +42,6 @@
 
 .sidebar-element {
   width: 100%;
-  height: 30%;
   text-align: center;
 }
 
@@ -84,3 +79,28 @@
     50% { opacity: 0.0; }
     100% { opacity: 1.0; }
 }*/
+
+#search {
+  padding: none;
+}
+
+.radio-search {
+  margin-top: 100px;
+  height: 30px;
+  text-align: center;
+}
+
+.search-1 {
+  width: 100%;
+  position: relative;
+}
+
+.right-sidebar input, .right-sidebar button {
+  height: 50px;
+}
+
+.list-item {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 9px;
+}
