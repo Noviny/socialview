@@ -112,11 +112,52 @@ $(document).ready(function () {
       google.maps.event.addListener(
           marker, 'click',
           function() {
-            //showEmbed(this.title);
+            console.log('image click')
+            var self = this;
+
+  var div = this.div;
+
+  if (!div) {
+
+    div = this.div = document.createElement('div');
+
+    div.className = 'marker';
+
+    div.style.position = 'absolute';
+    div.style.cursor = 'pointer';
+    div.text = 'test';
+
+
+    if (typeof(self.args.marker_id) !== 'undefined') {
+      div.dataset.marker_id = self.args.marker_id;
+    }
+
+    google.maps.event.addDomListener(div, "click", function(event) {
+      console.log('div create')
+      google.maps.event.trigger(self, "click");
+    });
+
+    var panes = this.getPanes();
+    panes.overlayImage.appendChild(div);
+  }
+
+  var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+
+  if (point) {
+    div.style.left = point.x + 'px';
+    div.style.top = point.y + 'px';
+  }
+
+            //showEmbed(this.link);
       });
       markers.push(marker);
     });
   }
+
+
+
+
+
 
   $('#main-search').on('click', function (){
     $('.close').on('click', function(e) {
