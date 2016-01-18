@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :check_if_admin, except: [:index]
 
   # GET /pages
   # GET /pages.json
@@ -74,4 +75,9 @@ class PagesController < ApplicationController
     def page_params
       params[:page]
     end
+
+  def check_if_admin
+    redirect_to root_path unless ( @current_user.present? && @current_user.admin? )
+  end
+
 end

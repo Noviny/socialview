@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   before_action :set_search, only: [:show, :edit, :update, :destroy]
+  before_action :check_if_admin 
 
   # GET /searches
   # GET /searches.json
@@ -71,4 +72,8 @@ class SearchesController < ApplicationController
     def search_params
       params[:search]
     end
+
+  def check_if_admin
+    redirect_to root_path unless ( @current_user.present? && @current_user.admin? )
+  end
 end
