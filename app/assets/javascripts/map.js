@@ -79,4 +79,8 @@ var map;
       }, {
           "saturation": -97
       }]
+<<<<<<< HEAD
   }];
+=======
+  }])}
+>>>>>>> 4ef5612f2d93b6388117746f491fafbb1aeffe39
