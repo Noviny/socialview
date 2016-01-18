@@ -1,14 +1,15 @@
-
+body, html{
+  padding: none;
+  margin: none;
+}
 /*//// MAP MAIN VIEW ////*/
 
 #main {
-  width: 70vw;
+  width: 100vw;
   height: 100vh;
   text-align: center;
   position: fixed;
   top: 51px;
-  right: 15%;
-  left: 15%;
 }
 
 /*//// RIGHT SIDEBAR ////*/
@@ -109,4 +110,8 @@
   margin-top: 0px !important;
   margin-bottom: 0px !important;
   padding-bottom: 0px !important;
+}
+
+.display-inline {
+  display: inline-block;
 }

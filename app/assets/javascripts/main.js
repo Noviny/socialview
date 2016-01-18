@@ -153,24 +153,4 @@ $(document).ready(function () {
       markers.push(marker);
     });
   }
-
-
-
-
-
-
-  $('#main-search').on('click', function (){
-    $('.close').on('click', function(e) {
-
-    e.preventDefault();
-
-    $('.overlay').removeClass('-on');
-    $('.bg').removeClass('-on');
-    });
-    $('#right').on('click', function(e) {
-      e.preventDefault();
-      /* Act on the event */
-      $('.-right').addClass('-on');
-    });
-  });
 });

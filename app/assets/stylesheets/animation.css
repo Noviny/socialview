@@ -33,7 +33,7 @@
 .overlay.-top {
   top: -100%;
   left: 0;
-  height: 15%;
+  height: 9%;
   width: 100%;
   -webkit-transition: top 0.3s ease;
   transition: top 1s ease-in-out;
@@ -68,4 +68,32 @@
 }
 .overlay.-right.-on {
   right: 0;
+}
+
+.overlay.-signup {
+  top: -100%;
+  left: 0;
+  height: 9%;
+  width: 100%;
+  -webkit-transition: top 0.3s ease;
+  transition: top 1s ease-in-out;
+  background-color: white;
+  color: black;
+}
+.overlay.-signup.-on {
+  top: 0;
+}
+
+.overlay.-login {
+  top: -100%;
+  left: 0;
+  height: 9%;
+  width: 100%;
+  -webkit-transition: top 0.3s ease;
+  transition: top 1s ease-in-out;
+  background-color: white;
+  color: black;
+}
+.overlay.-login.-on {
+  top: 0;
 }
