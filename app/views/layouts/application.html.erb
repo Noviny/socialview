@@ -32,14 +32,15 @@
     <![endif]-->
   </head>
   <body>
+    <%= render :partial => 'layouts/navbar' %>
     <%= render :partial => 'layouts/searchOverlay' %>
     <%= render :partial => 'layouts/resultsOverlays' %>
     <%= render :partial => 'layouts/infoOverlay' %>
-    <%= render :partial => 'layouts/navbar' %>
+    <%= render :partial => 'layouts/loginOverlay' %>
+    <%= render :partial => 'layouts/signupOverlay' %>
     <%= bootstrap_flash %>
       <%= yield %>
     </div>
-    <%= render :partial => 'layouts/rightSidebar' %>
     <footer></footer>
   </body>
 </html>
