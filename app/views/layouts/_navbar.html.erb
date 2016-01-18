@@ -17,17 +17,17 @@
   </div>
 
   <div id="log in">
-  <%= form_tag('/login', :method => :post) do  %>
-  <%= label_tag(:email) %>
-  <%= text_field_tag(:email, nil, :autofocus => true, :required => true) %>
-  <%= label_tag(:password) %>
-  <%= password_field_tag(:password, nil, :required => true) %>
-  <%= submit_tag('Log in', :class => 'btn btn-default') %>
-<% end %>
-</div>
+    <%= form_tag('/login', :method => :post) do  %>
+      <%= label_tag(:email) %>
+      <%= text_field_tag(:email, nil, :autofocus => true, :required => true) %>
+      <%= label_tag(:password) %>
+      <%= password_field_tag(:password, nil, :required => true) %>
+      <%= submit_tag('Log in', :class => 'btn btn-default') %>
+    <% end %>
+  </div>
 
-<div id="sign-up">
-  <%= form_tag('/users', :method => :post) do  %>
+  <div id="sign-up">
+    <%= form_tag('/users', :method => :post) do  %>
       <%= label_tag(:name) %>
       <%= text_field(:name, :placeholder => "Name") %>
       <%= label_tag(:email) %>
@@ -35,8 +35,8 @@
       <%= label_tag(:password) %>
       <%= password_field(:password, :placeholder => 'Password') %>
       <%= submit_tag('Sign Up', :class => 'btn btn-default') %>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 </nav>
 
 
