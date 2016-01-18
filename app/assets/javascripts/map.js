@@ -1,10 +1,10 @@
 var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 3
-  });
- map.set('styles', [{
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: -34.397, lng: 150.644},
+//     zoom: 3
+//   });
+ var mapStyles = [{
       "featureType": "landscape",
       "stylers": [{
           "saturation": -100
@@ -79,4 +79,4 @@ function initMap() {
       }, {
           "saturation": -97
       }]
-  }])}
+  }];
