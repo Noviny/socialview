@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "HashMap" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Social View" %></title>
     <%= csrf_meta_tags %>
 
     <script src="//maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libraries=geometry&language=&hl=&region="></script>
-
     <%= stylesheet_link_tag "application", :media => "all" %>
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -33,10 +32,11 @@
     <![endif]-->
   </head>
   <body>
+    <%= render :partial => 'layouts/searchOverlay' %>
+    <%= render :partial => 'layouts/resultsOverlays' %>
+    <%= render :partial => 'layouts/infoOverlay' %>
     <%= render :partial => 'layouts/navbar' %>
-    <%= render :partial => 'layouts/leftSidebar' %>
     <%= bootstrap_flash %>
-    <div class="container">
       <%= yield %>
     </div>
     <%= render :partial => 'layouts/rightSidebar' %>
