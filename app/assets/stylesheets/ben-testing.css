@@ -1,0 +1,9 @@
+.fits-main {
+  width: 70vw;
+  height: 100vh;
+  text-align: center;
+  position: fixed;
+  top: 51px;
+  right: 15%;
+  left: 15%;
+  }
