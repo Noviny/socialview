@@ -9,4 +9,7 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
+  post 'login' => 'session#create'
+  delete '/login' => 'session#destroy'
+
 end

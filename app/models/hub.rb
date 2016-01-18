@@ -1,13 +1,15 @@
 # == Schema Information
 #
-# Table name: searches
+# Table name: hubs
 #
 #  id         :integer          not null, primary key
+#  name       :string
+#  latitude   :float
+#  longitude  :float
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  search     :text
 #
 
-class Search < ActiveRecord::Base
-  belongs_to :user
+class Hub < ActiveRecord::Base
+  belongs_to :city
 end
