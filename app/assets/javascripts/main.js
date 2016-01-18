@@ -13,7 +13,7 @@ $(document).ready(function () {
             // var lng = showPosition.coords.longitude;
             console.log('Latitude: ', lat + 'Longitude: ', lng);
             var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 4,
+              zoom: 5,
               center: {lat: lat, lng: lng}
             });
             dataRequest(map, lat, lng);
