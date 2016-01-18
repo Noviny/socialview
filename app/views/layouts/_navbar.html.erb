@@ -25,6 +25,18 @@
   <%= submit_tag('Log in', :class => 'btn btn-default') %>
 <% end %>
 </div>
+
+<div id="sign-up">
+  <%= form_tag('/users', :method => :post) do  %>
+      <%= label_tag(:name) %>
+      <%= text_field(:name, :placeholder => "Name") %>
+      <%= label_tag(:email) %>
+      <%= text_field(:email, :placeholder => 'email') %>
+      <%= label_tag(:password) %>
+      <%= password_field(:password, :placeholder => 'Password') %>
+      <%= submit_tag('Sign Up', :class => 'btn btn-default') %>
+  <% end %>
+</div>
 </nav>
 
 
