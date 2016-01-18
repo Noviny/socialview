@@ -7,14 +7,17 @@ $(document).ready(function () {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition (
           function (showPosition) {
-            var lat = showPosition.coords.latitude;
-            var lng = showPosition.coords.longitude;
+            var lat = -23.697752;
+            var lng = 133.880067;
+            // var lat = showPosition.coords.latitude;
+            // var lng = showPosition.coords.longitude;
             console.log('Latitude: ', lat + 'Longitude: ', lng);
             var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 18,
+              zoom: 4,
               center: {lat: lat, lng: lng}
             });
             dataRequest(map, lat, lng);
+            map.set('styles', mapStyles);
           },
           function(error) {
             switch (geoPositionError.code) {
@@ -116,3 +119,4 @@ $(document).ready(function () {
   }
 
 });
+
