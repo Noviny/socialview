@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Social View</a>
+      <a class="navbar-brand" href="/">Social View</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,16 +17,15 @@
         <li class="active"><a id="left" href="#">Advanced Info <span class="sr-only">(current)</span></a></li>
         <li class="active"><a id="right" href="#">Results<span class="sr-only">(current)</span></a></li>
       </ul>
-        <button id="main-search" type="submit" class="btn btn-default">Submit</button>
         <div id="search-type" class="btn-group btn" role="group" aria-label="...">
           <button type="button" id="search-by-tag" class="btn btn-default">Tag</button>
           <button type="button" id="search-by-user" class="btn btn-default">User</button>
           <button type="button" id= "search-by-location" class="btn btn-default">Location</button>
         </div>
-      <form class="navbar-form navbar-left" role="search">
-
+      <form class="navbar-form navbar-left" role="search" id="search-bar">
         <div class="form-group">
           <input id="stagName" type="text" class="form-control" placeholder="Search">
+          <button id="main-search" type="submit" class="btn btn-default">Submit</button>
         </div>
     </form>
 

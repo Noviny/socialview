@@ -1,45 +1,48 @@
 $(document).ready( function () {
   console.log('Search.JS = ', $("#search"));
   //Get form contents
-  $("#main-search").on('click', function (e) {
+  $("#search-bar").on('submit', function (e) {
     e.preventDefault();
 
-    searchVal = $('#stagName').val();
-    console.log('SearchVal =', searchVal);
-    searchByTagName(searchVal);
-    //searchFor will return the result of the search bar wherever you want it.
-    //Currently programmed to make search for on each keypress.
-    function searchByTagName(searchVal) {
-      //Set map to Australia
-      var lat = -23.697752;
-      var lng = 133.880067;
+    if ( $("#search-by-tag").hasClass("active") ) {
+      searchVal = $('#stagName').val();
+      searchByTagName(searchVal);
+      //searchFor will return the result of the search bar wherever you want it.
+      //Currently programmed to make search for on each keypress.
+      function searchByTagName(searchVal) {
+        //Set map to Australia
+        var lat = -23.697752;
+        var lng = 133.880067;
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: {lat: lat - 10, lng: lng}
-      });
-      map.set('styles', mapStyles);
-      $.ajax('https://api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
-          type: 'GET',
-          dataType: 'jsonp',
-          data: {
-            access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
-          },
-          success: function(info) {
-            console.log('Info: ', info);
-            if (info.hasOwnProperty('data') && info.data.length > 0) {
-              var instPosts = [];
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: {lat: lat - 10, lng: lng}
+        });
+        map.set('styles', mapStyles);
+        $.ajax('https://api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
+            type: 'GET',
+            dataType: 'jsonp',
+            data: {
+              access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
+            },
+            success: function(info) {
+              console.log('Info: ', info);
+              if (info.hasOwnProperty('data') && info.data.length > 0) {
+                var instPosts = [];
 
-              _.each(info.data, function (itemRecord) {
-                if (itemRecord.location) {
-                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
-                }
-              });
+                _.each(info.data, function (itemRecord) {
+                  if (itemRecord.location) {
+                    instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
+                  }
+                });
 
-              setInstPostMarkers(map, instPosts);
-            } //Else no photos show
-          }
-      });
+                setInstPostMarkers(map, instPosts);
+              } //Else no photos show
+            }
+        });
+      }
+    } else {
+      console.log("different thing selected")
     }
 
     function setInstPostMarkers(map, instPosts) {
@@ -63,7 +66,6 @@ $(document).ready( function () {
           position: pos,
           map: map,
           icon: image,
-          animation: google.maps.Animation.BOUNCE,
           zIndex: 2,
           title: eachPost[2],
           optimized: false      //To allow marker custom in css
