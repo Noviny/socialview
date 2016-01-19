@@ -33,6 +33,7 @@ $(document).ready(function () {
             //** });
 
           /** TEMPORARY SHOW ONE RECORD **/
+            console.log("hubInfo-Lat: ", hubInfo.latitude);
             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
             map.set('styles', mapStyles);
