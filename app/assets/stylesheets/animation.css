@@ -11,7 +11,7 @@
 
 .bg {
   position: fixed;
-  z-index: 9999;
+  z-index: 100;
   opacity: 0;
   top: 0;
   left: 0;
@@ -30,17 +30,19 @@
   position: absolute;
   z-index: 99999;
 }
-.overlay.-top {
+.overlay-top {
   top: -100%;
+  position: fixed;
+  z-index: 200;
   left: 0;
-  height: 9%;
+  height: 19%;
   width: 100%;
   -webkit-transition: top 0.3s ease;
   transition: top 1s ease-in-out;
   background-color: white;
   color: black;
 }
-.overlay.-top.-on {
+.overlay-top.-on {
   top: 0;
 }
 .overlay.-left {
