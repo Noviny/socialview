@@ -125,13 +125,35 @@ $(document).ready(function () {
       var infowindow = new google.maps.InfoWindow({
         content: content
       });
+      var smoothZoom = function(map, max, cnt) {
+        if (cnt >= max) {
+            return;
+        }
+        else {
+            z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+                google.maps.event.removeListener(z);
+                smoothZoom(map, max, cnt + 1);
+                map.setCenter(pos);
+                console.log('zoom change')
+            });
+            setTimeout(function(){map.setZoom(cnt)}, 100);
+        }
+      };
       // Click event on Instagram Image
       google.maps.event.addListener(
           marker, 'click',
           function() {
-            console.log('image click')
             infowindow.open(map,marker);
+            map.setZoom(15);
+            map.setCenter(pos);
             //showEmbed(this.link);
+      });
+      google.maps.event.addListener(
+          marker, 'dblclick',
+          function(){
+          console.log('image click')
+          infowindow.open(map,marker);
+          smoothZoom(map, 15, map.getZoom()); // call smoothZoom, parameters map, final zoomLevel, and starting zoom level
       });
     markers.push(marker);
     }
