@@ -23,7 +23,7 @@ $(document).ready( function () {
             type: 'GET',
             dataType: 'jsonp',
             data: {
-              access_token: "<%= ENV['access_token'] %>"
+              access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
             },
             success: function(info) {
               console.log('Info: ', info);
