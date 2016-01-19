@@ -33,7 +33,7 @@ $(document).ready(function () {
             //** });
 
           /** TEMPORARY SHOW ONE RECORD **/
-            console.log("hubInfo-Lat: ", hubInfo[0].latitude);
+            console.log("hubInfo-Lat: ", hubInfo.latitude);
             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
             map.set('styles', mapStyles);
@@ -61,23 +61,22 @@ $(document).ready(function () {
   }
 
   function dataRequest(map, lat, lng) {
-
     $.ajax('http://api.instagram.com/v1/media/search/?', {
         type: 'GET',
         dataType: 'jsonp',
         data: {
-          distance: 500,
-          count: 1,
+          distance: 5000,
+          count: 100,
           lat: lat,
           lng: lng,
           access_token: "<%= ENV['access_token'] %>"
         },
         success: function(info) {
-          console.log('Info', info);
           if (info.hasOwnProperty('data') && info.data.length > 0) {
             var instPosts = [];
             _.map(info.data, function (itemRecord) {
-              instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
+              instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
+              chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
             });
             setInstPostMarkers(map, instPosts);
           } //Else no photos show
