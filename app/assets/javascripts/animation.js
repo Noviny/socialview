@@ -3,8 +3,8 @@ $(document).ready(function(){
       console.log("made it this far");
       e.preventDefault();
       /* Act on the event */
-      $('.-top').addClass('-on');
       $('.bg').addClass('-on');
+      $('.overlay-top').addClass('-on');
   });
 
   $('#login').on('click', function(e) {
@@ -39,7 +39,7 @@ $(document).ready(function(){
 
     e.preventDefault();
 
-    $('.overlay').removeClass('-on');
+    $('.overlay, .overlay-top').removeClass('-on');
     $('.bg').removeClass('-on');
   });
 });

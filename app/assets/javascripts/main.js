@@ -28,9 +28,12 @@ $(document).ready(function () {
             });
 
             //Send hub data (lat and lng) to make request in instagram api
-            _.each(hubInfo, function (hubData) {
-              dataRequest(map, hubData.latitude, hubData.longitude);
-            });
+            //** _.each(hubInfo, function (hubData) {
+            //**  dataRequest(map, hubData.latitude, hubData.longitude);
+            //** });
+
+          /** TEMPORARY SHOW ONE RECORD **/
+            dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
             map.set('styles', mapStyles);
           },

@@ -3,11 +3,13 @@ $(document).ready( function () {
   var $searchLocation = $('#search-location')[0]
 
 
-  $($searchType).on('click' function () {
-
+  $($searchType).on('click', function () {
+    console.log('clicky click')
   })
 
-  $($searchLocation)
+  $($searchLocation).on('click', function () {
+    console.log('City click')
+  })
 
   console.log('all info in search type ',$searchType)
   console.log('all info in search location ',$searchLocation)
