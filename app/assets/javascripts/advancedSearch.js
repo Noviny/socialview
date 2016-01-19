@@ -1,3 +1,6 @@
+var searchParam = 
+
+
 $(document).ready( function () {
   var $searchType = $('#search-type')[0]
   var $searchLocation = $('#search-location')[0]
