@@ -33,7 +33,7 @@ $(document).ready(function () {
             //** });
 
           /** TEMPORARY SHOW ONE RECORD **/
-            console.log("hubInfo-Lat: ", hubInfo.latitude);
+            console.log("hubInfo-Lat: ", hubInfo[0].latitude);
             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
             map.set('styles', mapStyles);
@@ -104,7 +104,7 @@ $(document).ready(function () {
         position: pos,
         map: map,
         icon: image,
-      //  animation: google.maps.Animation.BOUNCE,
+    //  animation: google.maps.Animation.BOUNCE,
         zIndex: 2,
         title: instPosts[2],
         optimized: false      //To allow marker custom in css
