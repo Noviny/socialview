@@ -1,51 +1,134 @@
 $(document).ready( function () {
-  console.log('Search.JS = ', $("#search"));
+  //Set map to Australia
+  var lat = -23.697752;
+  var lng = 133.880067;
+
   //Get form contents
   $("#search-bar").on('submit', function (e) {
     e.preventDefault();
 
+    searchVal = $('#searchValue').val();
+
     if ( $("#search-by-tag").hasClass("active") ) {
-      searchVal = $('#stagName').val();
       searchByTagName(searchVal);
       //searchFor will return the result of the search bar wherever you want it.
       //Currently programmed to make search for on each keypress.
-      function searchByTagName(searchVal) {
-        //Set map to Australia
-        var lat = -23.697752;
-        var lng = 133.880067;
+    } else {
+      searchByUserName(searchVal);
+    }
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 2,
-        center: {lat: lat - 10, lng: lng}
-        });
-        map.set('styles', mapStyles);
-        $.ajax('https://api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
+    function searchByTagName(searchVal) {
+      $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
+          type: 'GET',
+          dataType: 'jsonp',
+          data: {
+            access_token: "<%= ENV['access_token'] %>"
+          },
+          success: function(info) {
+            console.log("Info: ", info);
+            if (info.hasOwnProperty('data') && info.data.length > 0) {
+              var instPosts = [];
+
+              _.each(info.data, function (itemRecord) {
+                if (itemRecord.location) {
+                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
+                }
+              });
+
+              setToTagsResultPage(instPosts);
+              setInstPostMarkers(instPosts);
+            } //Else no photos show
+          }
+      });
+    }
+
+    function setToTagsResultPage(instPosts) {
+      _.each(instPosts, function (eachPost) {
+        $('#results').append('<li><a id= "' + eachPost[4][0] + '" href="' +eachPost[4][0]+ '">' + eachPost[4][0]+ '</a></li>');
+      });
+
+      // linkToTheTagInfo(instPosts);
+    }
+
+    // function linkToTheTagInfo (instPosts) {
+    //   var map = new google.maps.Map(document.getElementById('map'), {
+    //     zoom: 2,
+    //     center: {lat: lat - 10, lng: lng}
+    //   });
+    //   map.set('styles', mapStyles);
+
+    //   $("#results a").on('click', function (e) {
+    //   e.preventDefault();
+    //   instPosts =
+
+    // }
+
+    function searchByUserName(searchVal) {
+      $.ajax('//api.instagram.com/v1/users/search?', {
+          type: 'GET',
+          dataType: 'jsonp',
+          data: {
+            q: searchVal,
+            access_token: "<%= ENV['access_token'] %>"
+          },
+          success: function(userInfo) {
+            if (userInfo.hasOwnProperty('data') && userInfo.data.length > 0) {
+              var usersList = [];
+
+              _.each(userInfo.data, function (userItemRecord) {
+                if (userItemRecord.full_name) {
+                  usersList.push([userItemRecord.id, userItemRecord.full_name]);
+                }
+              });
+              setToUsersResultPage(usersList);
+            } //Else no photos show
+          }
+      });
+    }
+
+    function setToUsersResultPage(usersList) {
+      $('.-right').addClass('-on');
+
+      _.each(usersList, function (eachUser) {
+        $('#results').append('<li><a id= "' + eachUser[0] + '" href="' +eachUser[0]+ '">' + eachUser[1]+ '</a></li>');
+      });
+
+      linkUserInstActivities();
+    }
+
+    function linkUserInstActivities() {
+      $("#results a").on('click', function (e) {
+        e.preventDefault();
+
+        $('.-right').removeClass('-on');
+
+        $.ajax('//api.instagram.com/v1/users/' + this.id + '/media/recent/?', {
             type: 'GET',
             dataType: 'jsonp',
             data: {
               access_token: "<%= ENV['access_token'] %>"
             },
-            success: function(info) {
-              console.log('Info: ', info);
-              if (info.hasOwnProperty('data') && info.data.length > 0) {
-                var instPosts = [];
+            success: function(userInfo) {
+              var instPosts = [];
 
-                _.each(info.data, function (itemRecord) {
-                  if (itemRecord.location) {
-                    instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
-                  }
-                });
-
-                setInstPostMarkers(map, instPosts);
-              } //Else no photos show
+              _.each(userInfo.data, function (itemRecord) {
+                if (itemRecord.location) {
+                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
+                }
+              });
+              setInstPostMarkers(instPosts);
             }
         });
-      }
-    } else {
-      console.log("different thing selected")
+      });
     }
 
-    function setInstPostMarkers(map, instPosts) {
+    function setInstPostMarkers(instPosts) {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: {lat: lat - 10, lng: lng}
+      });
+      map.set('styles', mapStyles);
+
       var markers = [];
       _.each(instPosts, function (eachPost) {
         var image = {
@@ -79,14 +162,14 @@ $(document).ready( function () {
         myoverlay.setMap(map);
 
         var embed = eachPost[2];
-      embed = embed.match(/\/p\/(.*)\//)[1]
-      console.log(embed);
-      var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-          '</div>';
+        embed = embed.match(/\/p\/(.*)\//)[1]
 
-      var infowindow = new google.maps.InfoWindow({
-        content: content
-      });
+        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: content
+        });
 
         // Click event on Instagram Image
         google.maps.event.addListener(
@@ -99,6 +182,6 @@ $(document).ready( function () {
         });
         markers.push(marker);
        });
-    }
+      }
     });
-})
+});

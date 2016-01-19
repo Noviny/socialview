@@ -1,3 +1,10 @@
+/*#map > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div > div:nth-child(3) > img {
+  background: black;
+}
+*/
+
+/*$("#map > div > div:nth-child(1) > div:nth-child(3) > div:nth-child(4) > div > div:nth-child(3) > img")*/
+
 .container {
   position: relative;
   z-index: 1;
@@ -98,4 +105,8 @@
 }
 .overlay.-login.-on {
   top: 0;
+}
+
+.content li a {
+  color: #fff;
 }

@@ -33,7 +33,7 @@ $(document).ready(function () {
             //** });
 
           /** TEMPORARY SHOW ONE RECORD **/
-            console.log("hubInfo-Lat: ", hubInfo.latitude);
+            console.log("hubInfo-Lat: ", hubInfo[0].latitude);
             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
             map.set('styles', mapStyles);
@@ -61,7 +61,7 @@ $(document).ready(function () {
   }
 
   function dataRequest(map, lat, lng) {
-    $.ajax('http://api.instagram.com/v1/media/search/?', {
+    $.ajax('//api.instagram.com/v1/media/search/?', {
         type: 'GET',
         dataType: 'jsonp',
         data: {
@@ -72,8 +72,15 @@ $(document).ready(function () {
           access_token: "<%= ENV['access_token'] %>"
         },
         success: function(info) {
+          // console.log('info:' ,info) // Uncomment later
+
+          // get rid of this later
+          document.chartInfo = info;
+          console.log("this is the one you need",info);
+          //
           if (info.hasOwnProperty('data') && info.data.length > 0) {
             var instPosts = [];
+            var chartInfo = [];
             _.map(info.data, function (itemRecord) {
               instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
               chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
@@ -103,7 +110,7 @@ $(document).ready(function () {
         position: pos,
         map: map,
         icon: image,
-      //  animation: google.maps.Animation.BOUNCE,
+    //  animation: google.maps.Animation.BOUNCE,
         zIndex: 2,
         title: instPosts[2],
         optimized: false      //To allow marker custom in css
@@ -119,7 +126,7 @@ $(document).ready(function () {
       var embed = instPosts[2];
       embed = embed.match(/\/p\/(.*)\//)[1]
       console.log(embed);
-      var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+      var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
           '</div>';
 
       var infowindow = new google.maps.InfoWindow({
@@ -153,7 +160,13 @@ $(document).ready(function () {
           function(){
           console.log('image click')
           infowindow.open(map,marker);
-          smoothZoom(map, 15, map.getZoom()); // call smoothZoom, parameters map, final zoomLevel, and starting zoom level
+          smoothZoom(map, 15, map.getZoom());
+      });
+      google.maps.event.addListener(infowindow,'closeclick',function(){
+            map.setZoom(4);
+      });
+      google.maps.event.addListener(map, 'click', function() {
+            infowindow.close();
       });
     markers.push(marker);
     }

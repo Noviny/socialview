@@ -16,4 +16,5 @@
 //= require lib/underscore
 //= require lib/backbone
 //= require gmaps/google
+//= require lib/moment
 //= require_tree .
