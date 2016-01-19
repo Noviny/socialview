@@ -61,7 +61,7 @@ $(document).ready(function () {
   }
 
   function dataRequest(map, lat, lng) {
-    $.ajax('http://api.instagram.com/v1/media/search/?', {
+    $.ajax('//api.instagram.com/v1/media/search/?', {
         type: 'GET',
         dataType: 'jsonp',
         data: {
@@ -119,7 +119,7 @@ $(document).ready(function () {
       var embed = instPosts[2];
       embed = embed.match(/\/p\/(.*)\//)[1]
       console.log(embed);
-      var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+      var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
           '</div>';
 
       var infowindow = new google.maps.InfoWindow({
