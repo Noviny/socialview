@@ -65,8 +65,8 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'jsonp',
         data: {
-          distance: 500,
-          count: 1,
+          distance: 5000,
+          count: 100,
           lat: lat,
           lng: lng,
           access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
@@ -75,7 +75,8 @@ $(document).ready(function () {
           if (info.hasOwnProperty('data') && info.data.length > 0) {
             var instPosts = [];
             _.map(info.data, function (itemRecord) {
-              instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
+              instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
+              chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
             });
             setInstPostMarkers(map, instPosts);
           } //Else no photos show
