@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 
     client = Twitter::REST::Client.new(config)
 
-    @things = client.retweets
+    @things = client.retweets()
   end
 
   # GET /pages/1
