@@ -6,7 +6,7 @@ $(document).ready(function () {
         dataType: 'jsonp',
         data: {
           distance: 5000,
-          count: 1000,
+          count: 10,
           lat: lat,
           lng: lng,
           access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
@@ -22,7 +22,6 @@ $(document).ready(function () {
               instPosts[i] = [itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time]
             });
           console.log('this is the instPosts', instPosts);
-          setInstPostMarkers(map, instPosts);
         } //Else no photos show
       }
     });
