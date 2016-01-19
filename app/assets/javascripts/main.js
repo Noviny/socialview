@@ -134,5 +134,3 @@ $(document).ready(function () {
     markers.push(marker);
     }
 });
-
-
