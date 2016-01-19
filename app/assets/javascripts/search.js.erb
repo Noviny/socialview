@@ -5,7 +5,7 @@ $(document).ready( function () {
     e.preventDefault();
 
     if ( $("#search-by-tag").hasClass("active") ) {
-      searchVal = $('#stagName').val();
+      searchVal = $('#searchValue').val();
       searchByTagName(searchVal);
       //searchFor will return the result of the search bar wherever you want it.
       //Currently programmed to make search for on each keypress.
