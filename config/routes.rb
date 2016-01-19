@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :pages
   resources :hubs
 
+  get '/test' => 'pages#test'
+
   get '/info' => 'pages#info'
 
   root 'pages#index'

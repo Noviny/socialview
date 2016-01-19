@@ -1,11 +1,24 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
-  before_action :check_if_admin, except: [:index]
+  before_action :check_if_admin, except: [:index, :test]
 
   # GET /pages
   # GET /pages.json
   def index
     @pages = Page.all
+  end
+
+  def test
+    config = {
+      consumer_key: "3LFlsaB9Pcu5CxunbbDMaSj0q",
+      consumer_secret: "85pYc6Zj2X7Pro7fsq6O42XYR96uESoG6x6o4brv7vWVOZzqli",
+      access_token: "5629842-WFWEexpyKZZdIOD8XF97TUwdczkMAlWV84xxaUcxR5",
+      access_token_secret: "zm5HFu6LwhPljLzj0bqdvQe5tmbQkwd8JANTsxL2g2tco"
+    }
+
+    client = Twitter::REST::Client.new(config)
+
+    @things = client.retweets
   end
 
   # GET /pages/1
