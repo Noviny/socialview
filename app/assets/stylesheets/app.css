@@ -119,11 +119,21 @@ body, html{
 /*//// display div post ////*/
 
 #iw_container {
-  width: 390px !important;
-  height: 450px !important;
+  max-width:800px;
+  height:auto;
+  z-index:1002;
+  width:80%;
+  border-radius:25px;
+  -moz-border-radius:25px;
+  -webkit-border-radius:25px;
+  padding:5px;
+  min-height: 300px;
+
 }
 
-iframe {
-  width: 390px !important;
-  height: 100% !important;
+#Embed {
+  text-align:center;
+  color:#D9534F;
+  width:320px;
+  z-index:1001;
 }

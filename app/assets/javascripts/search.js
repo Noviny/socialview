@@ -5,7 +5,7 @@ $(document).ready( function () {
     e.preventDefault();
 
     if ( $("#search-by-tag").hasClass("active") ) {
-      searchVal = $('#searchValue').val();
+      searchVal = $('#stagName').val();
       searchByTagName(searchVal);
       //searchFor will return the result of the search bar wherever you want it.
       //Currently programmed to make search for on each keypress.
@@ -19,11 +19,11 @@ $(document).ready( function () {
         center: {lat: lat - 10, lng: lng}
         });
         map.set('styles', mapStyles);
-        $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
+        $.ajax('https://api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
             type: 'GET',
             dataType: 'jsonp',
             data: {
-              access_token: "<%= ENV['access_token'] %>"
+              access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
             },
             success: function(info) {
               console.log('Info: ', info);
