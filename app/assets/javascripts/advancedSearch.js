@@ -1,19 +1,13 @@
-var searchParam = 
+var searchParam = 'tag'
 
 
 $(document).ready( function () {
-  var $searchType = $('#search-type')[0]
-  var $searchLocation = $('#search-location')[0]
+
+  $("#search-by-tag").addClass("active")
+  $(".btn-group > .btn").click(function(){
+      $(this).addClass("active").siblings().removeClass("active");
+  });
+});
 
 
-  $($searchType).on('click', function () {
-    console.log('clicky click')
-  })
 
-  $($searchLocation).on('click', function () {
-    console.log('City click')
-  })
-
-  console.log('all info in search type ',$searchType)
-  console.log('all info in search location ',$searchLocation)
-})
