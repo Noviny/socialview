@@ -18,7 +18,8 @@ class PagesController < ApplicationController
 
     client = Twitter::REST::Client.new(config)
 
-    @things = client.retweets()
+    @things = client.search("#javascript", result_type: "recent").take(3)
+    raise "hell"
   end
 
   # GET /pages/1
