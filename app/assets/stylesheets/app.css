@@ -115,3 +115,10 @@ body, html{
 .display-inline {
   display: inline-block;
 }
+
+/*//// display div post ////*/
+
+#iw-container {
+  width: 100% !important;
+  height: 360px !important;
+}
