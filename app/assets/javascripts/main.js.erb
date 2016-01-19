@@ -154,7 +154,13 @@ $(document).ready(function () {
           function(){
           console.log('image click')
           infowindow.open(map,marker);
-          smoothZoom(map, 15, map.getZoom()); // call smoothZoom, parameters map, final zoomLevel, and starting zoom level
+          smoothZoom(map, 15, map.getZoom());
+      });
+      google.maps.event.addListener(infowindow,'closeclick',function(){
+            map.setZoom(4);
+      });
+      google.maps.event.addListener(map, 'click', function() {
+            infowindow.close();
       });
     markers.push(marker);
     }
