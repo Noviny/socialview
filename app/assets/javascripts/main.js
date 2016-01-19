@@ -110,7 +110,7 @@ $(document).ready(function () {
       // Apply custom css for marker
       var myoverlay = new google.maps.OverlayView();
       myoverlay.draw = function () {
-         this.getPanes().markerLayer.id='markerLayer';
+        this.getPanes().markerLayer.id='markerLayer';
       };
       myoverlay.setMap(map);
 
@@ -129,11 +129,10 @@ $(document).ready(function () {
           function() {
             console.log('image click')
             infowindow.open(map,marker);
-
             //showEmbed(this.link);
       });
-      markers.push(marker);
-  }
+    markers.push(marker);
+    }
 });
 
 
