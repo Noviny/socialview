@@ -19,7 +19,7 @@ $(document).ready( function () {
         center: {lat: lat - 10, lng: lng}
         });
         map.set('styles', mapStyles);
-        $.ajax('https://api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
+        $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
             type: 'GET',
             dataType: 'jsonp',
             data: {
