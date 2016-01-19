@@ -114,11 +114,21 @@ $(document).ready(function () {
       };
       myoverlay.setMap(map);
 
+      var embed = instPosts[2];
+      embed = embed.match(/\/p\/(.*)\//)[1]
+      console.log(embed);
+      var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+          '</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: content
+      });
       // Click event on Instagram Image
       google.maps.event.addListener(
-        marker, 'click',
-        function() {
-        console.log('image click')
+          marker, 'click',
+          function() {
+            console.log('image click')
+            infowindow.open(map,marker);
             //showEmbed(this.link);
       });
     markers.push(marker);
