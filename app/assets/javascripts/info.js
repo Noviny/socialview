@@ -1,4 +1,3 @@
-
 // $(document).ready(function(){
 //   console.log(moment("20111031", "YYYYMMDD").fromNow());
 //   console.log("charInfo from info.js", document.chartInfo);
@@ -38,10 +37,10 @@ var convertedTime = []; // human time
 
 
 document.chartInfo.data.forEach(function(chart){
-  console.log("loop running");
+  // console.log("loop running");
   time.push(chart.created_time);
   likes.push(chart.likes.count);
-  comments.push(chart.comments.count);
+  // comments.push(chart.comments.count);
 });
 
 
@@ -53,6 +52,6 @@ var timeConvert = function(time){
 
 timeConvert(time);
 
-console.log("this is the converted time", convertedTime, "This is the likes", likes, "This is the comments", comments);
+// console.log("this is the converted time", convertedTime, "This is the likes", likes, "This is the comments", comments);
 
 }, 8000);

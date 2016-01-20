@@ -1,4 +1,4 @@
-$(document).ready(function () {
+<!-- $(document).ready(function () {
 
   getDefaultMapValues();
 
@@ -26,12 +26,12 @@ $(document).ready(function () {
               zoom: 4,
               center: {lat: lat - 10, lng: lng}
             });
-            var input = document.getElementById('pac-input');
-            var searchBox = new google.maps.places.SearchBox(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-            map.addListener('bounds_changed', function() {
-              searchBox.setBounds(map.getBounds());
-             });
+            // var input = document.getElementById('pac-input');
+            // var searchBox = new google.maps.places.SearchBox(input);
+            // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            // map.addListener('bounds_changed', function() {
+            //   searchBox.setBounds(map.getBounds());
+            //  });
 
             //Send hub data (lat and lng) to make request in instagram api
             //** _.each(hubInfo, function (hubData) {
@@ -97,13 +97,7 @@ $(document).ready(function () {
          }
     });
   }
-  var markers = [];
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
 
-    if (places.length == 0) {
-      return;
-    }
 
   function setInstPostMarkers(map, instPosts) {
     var markers = [];
@@ -151,23 +145,6 @@ $(document).ready(function () {
       var infowindow = new google.maps.InfoWindow({
         content: content
       });
-
-
-      //zoom function for map, can be removed probably not needed
-      var smoothZoom = function(map, max, cnt) {
-        if (cnt >= max) {
-            return;
-        }
-        else {
-            z = google.maps.event.addListener(map, 'zoom_changed', function(event){
-                google.maps.event.removeListener(z);
-                smoothZoom(map, max, cnt + 1);
-                map.setCenter(pos);
-                console.log('zoom change')
-            });
-            setTimeout(function(){map.setZoom(cnt)}, 100);
-        }
-      };
       // Click event on Instagram Image
       google.maps.event.addListener(
           marker, 'click',
@@ -176,13 +153,6 @@ $(document).ready(function () {
             map.setZoom(15);
             map.setCenter(pos);
             //showEmbed(this.link);
-      });
-      google.maps.event.addListener(
-          marker, 'dblclick',
-          function(){
-          console.log('image click')
-          infowindow.open(map,marker);
-          smoothZoom(map, 15, map.getZoom());
       });
       google.maps.event.addListener(infowindow,'closeclick',function(){
             map.setZoom(4);
@@ -195,4 +165,4 @@ $(document).ready(function () {
     markers.push(marker);
     });
     }
-});
+}); -->
