@@ -1,57 +1,72 @@
-// $(document).ready(function(){
-//   console.log(moment("20111031", "YYYYMMDD").fromNow());
-//   console.log("charInfo from info.js", document.chartInfo);
-// });
+var time = []; // System time
+var likes = []; // Total Likes
+var comments = []; // Total Comments
+var convertedTime = []; // Human time
 
-// // Need to conver the system time
+// Function to push data from var globalData into individula variables in array form so we can use them with chart.js
+// This function also calls the timeConvert function to convert the unix time to Human time
+var loopData = function (globalInfo){
+    chartClear();
+  _.each(globalInfo, function(value){
 
-// // Need to add charts.js
-
-// // Need to structure the data into the charts
-           // console.log(chartInfo) // Uncomment later
-// var miles = function(){
-//   _.each(document.chartInfo, function(chart){
-//       var filtered = chart.filter(function(value, key){
-//         if(key > 5){
-//           if (value === 0){
-//             value = 1; // IF YOU FUCKING TOUCH THIS I WILL RIP YOUR FUCKING FACE OFF AND CONSOLE.LOG IT.
-//           }
-//           return value;
-//         }
-//       });
-//     // console.log(filtered); // uncomment later
-//   });
-// };
+    console.log("Chart Data ready to fucking rock!");
 
 
+    time.push(value.created_time);
+    likes.push(value.likes.count);
+    comments.push(value.comments.count);
 
 
+  });
 
-setTimeout(function(){
+  chartData.datasets[0].data = likes;
+  timeConvert(time);
+  chartData.labels = convertedTime.reverse();
 
-var time = []; //system time
-var likes = [];
-var comments = [];
-var convertedTime = []; // human time
+  console.log("The chart time has been converted FUCKER!");1
+}
 
-
-
-document.chartInfo.data.forEach(function(chart){
-  // console.log("loop running");
-  time.push(chart.created_time);
-  likes.push(chart.likes.count);
-  // comments.push(chart.comments.count);
-});
-
-
+// Function to convert system time into human time for the chart
 var timeConvert = function(time){
-  for (var i = 0; i < time.length; i++) {
-  convertedTime.push(moment.unix(~~(time[i])).format('h:mm:ss:ms'));
+  for (var i = 0; i < time.length; i++){
+    var currentTime = Math.floor(time[i]);
+    currentTime = moment.unix(currentTime).format('h:mm');
+    convertedTime.push(currentTime);
   };
 };
 
-timeConvert(time);
+var chartLoad = function(){
+  var loadedChart;
+  $('#chart').remove();
+  $('#chartholder').append('<canvas id="chart" width="1000" height="400"></canvas>');
+  var chart = document.getElementById('chart').getContext('2d');
+      new Chart(chart).Line(chartData);
+      console.log("chart is being loaded");
+}
 
-// console.log("this is the converted time", convertedTime, "This is the likes", likes, "This is the comments", comments);
+var chartData = {
+    labels: [],
+    datasets: [
+        {
+            label: "Likes dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,0.5)",
+            pointColor: "rgba(220,220,220,0.5)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#0465b0",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+        },
+    ]
+};
 
-}, 8000);
+
+var chartClear = function(){
+  console.log("chart has been cleared");
+  time = []; // System time
+  likes = []; // Total Likes
+  comments = []; // Total Comments
+  convertedTime = []; // Human time
+  chartData.datasets[0].data = []; // Loaded likes
+  chartData.labels = []; // loaded converted time
+}

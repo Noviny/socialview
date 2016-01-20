@@ -63,6 +63,7 @@ body, html{
   -webkit-animation-iteration-count: infinite;*/
 }
 
+
 /*@-moz-keyframes blinker {
     0% { opacity: 1.0; }
     50% { opacity: 0.0; }
@@ -122,6 +123,7 @@ body, html{
   text-align:center;
   width:320px;
   z-index:1001;
+<<<<<<< HEAD
   min-height: 300px;
   position: absolute;
 }
@@ -143,3 +145,39 @@ body, html{
 .pac-container {
   font-family: Roboto;
 }
+=======
+}
+
+<<<<<<< HEAD
+.info {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+canvas {
+  margin: 0 auto;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}
+
+#exit {
+  color: red;
+  border: 5px solid red;
+}
+=======
+.modal-header-warning {
+  color:#fff;
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #f0ad4e;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+>>>>>>> cc54a7ce55aa21cfd47eac297c0767e178b8a31f
+>>>>>>> 671fbd140a598c3458aa0af90f8129b5b61e598f
