@@ -11,8 +11,6 @@ $(document).ready( function () {
 
     if ( $("#search-by-tag").hasClass("active") ) {
       searchByTagName(searchVal);
-      //searchFor will return the result of the search bar wherever you want it.
-      //Currently programmed to make search for on each keypress.
     } else {
       searchByUserName(searchVal);
     }
@@ -30,22 +28,33 @@ $(document).ready( function () {
 
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
-                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags, itemRecord.location.id, itemRecord.user.full_name]);
+                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
                 }
               });
 
-              setToTagsResultPage(instPosts);
+              setToTagsResultPage(info.data);
               setInstPostMarkers(instPosts);
-            } //Else no photos show
+            } else {
+              $('#messageModal').modal('show');
+            }
           }
       });
     }
 
     function setToTagsResultPage(instPosts) {
+      $('.-right').addClass('-on');
       $('#results').empty();
 
       _.each(instPosts, function (eachPost) {
-        $('#results').append('<li><a id= "' + eachPost[5] + '" href="' +eachPost[4][0]+ '">' + eachPost[4][0]+ ' by ' +eachPost[6]+ '</a></li>');
+        var result;
+
+        if (eachPost.location){
+          result = '<li><a id= "' + eachPost.location.id + '" href="' +eachPost.tags+ '"><img src="' + eachPost.images.thumbnail.url+ '"> </a></li>';
+        } else {
+          result = '<li><img src="' + eachPost.images.thumbnail.url+ '"></li>';
+        }
+
+        $('#results').append(result);
       });
 
       linkToTheTagInfo();
@@ -130,6 +139,13 @@ $(document).ready( function () {
                   instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
                 }
               });
+
+              if (instPosts.length > 0){
+                $('#messageModal').modal('hide');
+              } else {
+                $('#messageModal').modal('show');
+              }
+
               setInstPostMarkers(instPosts);
             }
         });
