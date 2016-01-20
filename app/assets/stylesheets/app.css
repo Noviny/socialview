@@ -151,3 +151,8 @@ canvas {
   right: 10%;
   bottom: 10%;
 }
+
+#exit {
+  color: red;
+  border: 5px solid red;
+}

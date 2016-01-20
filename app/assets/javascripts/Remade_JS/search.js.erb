@@ -39,8 +39,10 @@ $(document).ready( function () {
               });
               setToTagsResultPage(instPosts);
               setInstPostMarkers(instPosts);
-              loopData(globalInfo);
-              chartLoad();
+
+              loopData(globalInfo); // This is where I populate my chart data varables
+              chartLoad(); // This is when i load the data into the chart and the chart onto the info page
+
             } //Else no photos show
           }
       });

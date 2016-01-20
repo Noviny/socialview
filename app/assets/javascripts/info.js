@@ -6,7 +6,9 @@ var convertedTime = []; // Human time
 // Function to push data from var globalData into individula variables in array form so we can use them with chart.js
 // This function also calls the timeConvert function to convert the unix time to Human time
 var loopData = function (globalInfo){
+    chartClear();
   _.each(globalInfo, function(value){
+
     console.log("Chart Data ready to fucking rock!");
 
 
@@ -16,8 +18,12 @@ var loopData = function (globalInfo){
 
 
   });
+
+  chartData.datasets[0].data = likes;
   timeConvert(time);
-  console.log("The chart time has been converted FUCKER!")
+  chartData.labels = convertedTime.reverse();
+
+  console.log("The chart time has been converted FUCKER!");1
 }
 
 // Function to convert system time into human time for the chart
@@ -30,17 +36,16 @@ var timeConvert = function(time){
 };
 
 var chartLoad = function(){
+  var loadedChart;
+  $('#chart').remove();
+  $('#chartholder').append('<canvas id="chart" width="1000" height="400"></canvas>');
   var chart = document.getElementById('chart').getContext('2d');
-      if (chartData.datasets[0].data.length > 0){
-        console.log("FUCKKKK SUAKE ", chartData.datasets[0].data.length);
-      }
-      console.log(likes);
       new Chart(chart).Line(chartData);
       console.log("chart is being loaded");
 }
 
 var chartData = {
-    labels: convertedTime,
+    labels: [],
     datasets: [
         {
             label: "Likes dataset",
@@ -50,16 +55,18 @@ var chartData = {
             pointStrokeColor: "#fff",
             pointHighlightFill: "#0465b0",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: likes
+            data: []
         },
     ]
 };
 
 
 var chartClear = function(){
-  var time = []; // System time
-  var likes = []; // Total Likes
-  var comments = []; // Total Comments
-  var convertedTime = []; // Human time
-  return
+  console.log("chart has been cleared");
+  time = []; // System time
+  likes = []; // Total Likes
+  comments = []; // Total Comments
+  convertedTime = []; // Human time
+  chartData.datasets[0].data = []; // Loaded likes
+  chartData.labels = []; // loaded converted time
 }
