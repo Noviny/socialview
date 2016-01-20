@@ -35,22 +35,15 @@ $(document).ready( function () {
                   instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
                 }
               });
-<<<<<<< HEAD
-              setToTagsResultPage(instPosts);
+              setToTagsResultPage(info.data);
               setInstPostMarkers(instPosts);
-
               loopData(globalInfo); // This is where I populate my chart data varables
               chartLoad(); // This is when i load the data into the chart and the chart onto the info page
 
-            } //Else no photos show
-=======
-
-              setToTagsResultPage(info.data);
-              setInstPostMarkers(instPosts);
             } else {
               $('#messageModal').modal('show');
             }
->>>>>>> cc54a7ce55aa21cfd47eac297c0767e178b8a31f
+
           }
       });
     }
