@@ -86,13 +86,14 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
+          // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.map(info.data, function (itemRecord) {
             // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
-          loopData(globalInfo);
+          // loopData(globalInfo);
+          // chartLoad();
         } //Else no photos show
        }
   });
@@ -155,7 +156,9 @@ function setInstPostMarkers(map, instPosts) {
           setTimeout(function(){map.setZoom(cnt)}, 100);
       }
     };
-    // Click event on Instagram Image
+    // Click event on Instagram Image // This is the click on the marker to display the info window, need to try and link this to my chart
+    // This Opens marker, zooms and centers it
+
     google.maps.event.addListener(
         marker, 'click',
         function() {

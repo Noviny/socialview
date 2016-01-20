@@ -138,3 +138,16 @@ body, html{
   width:320px;
   z-index:1001;
 }
+
+.info {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+canvas {
+  margin: 0 auto;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}

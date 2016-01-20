@@ -1,3 +1,5 @@
+var globalInfo;
+
 $(document).ready( function () {
   //Set map to Australia
   var lat = -23.697752;
@@ -28,14 +30,17 @@ $(document).ready( function () {
             if (info.hasOwnProperty('data') && info.data.length > 0) {
               var instPosts = [];
 
+              globalInfo = info.data;
+
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
                   instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags, itemRecord.location.id, itemRecord.user.full_name]);
                 }
               });
-
               setToTagsResultPage(instPosts);
               setInstPostMarkers(instPosts);
+              loopData(globalInfo);
+              chartLoad();
             } //Else no photos show
           }
       });
