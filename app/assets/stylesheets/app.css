@@ -139,6 +139,7 @@ body, html{
   z-index:1001;
 }
 
+<<<<<<< HEAD
 .info {
   text-align: center;
   margin: 0 auto;
@@ -156,3 +157,17 @@ canvas {
   color: red;
   border: 5px solid red;
 }
+=======
+.modal-header-warning {
+  color:#fff;
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #f0ad4e;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+>>>>>>> cc54a7ce55aa21cfd47eac297c0767e178b8a31f
