@@ -1,17 +1,10 @@
+var globalInfo;
+
 $(document).ready( function () {
   //Set map to Australia
   var lat = -23.697752;
   var lng = 133.880067;
 
-$.ajaxSetup({
-   statusCode : {
-     // called on `$.get()` , `$.post()`, `$.ajax()`
-     // when response status code is `404`
-     404 : function (jqxhr, textStatus, errorThrown) {
-             console.log(textStatus, errorThrown);
-           }
-     }
- });
 
   //Get form contents
   $("#search-bar").on('submit', function (e) {
@@ -38,20 +31,25 @@ $.ajaxSetup({
             if (info.hasOwnProperty('data') && info.data.length > 0) {
               var instPosts = [];
 
+              globalInfo = info.data;
+
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
                   instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
                 }
               });
-
               setToTagsResultPage(info.data);
               setInstPostMarkers(instPosts);
+              loopData(globalInfo); // This is where I populate my chart data varables
+              chartLoad(); // This is when i load the data into the chart and the chart onto the info page
+
             } else {
               $('#messageModal').modal('show');
             }
+
           }
-      }).fail(function (data) {
-        debugger;
+      // }).fail(function (data) {
+      //   $('#messageModal').modal('show');
       });
     }
 

@@ -37,7 +37,7 @@ function getLocation(hubInfo) {
             zoom: 4,
             center: {lat: lat - 10, lng: lng}
           });
-
+          map.set('styles', mapStyles);
           //Send hub data (lat and lng) to make request in instagram api
           //** _.each(hubInfo, function (hubData) {
           //**  dataRequest(map, hubData.latitude, hubData.longitude);
@@ -49,7 +49,7 @@ function getLocation(hubInfo) {
             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
       //    }, 5000);
 
-          map.set('styles', mapStyles);
+
         },
         function(error) {
           switch (geoPositionError.code) {
@@ -71,7 +71,10 @@ function getLocation(hubInfo) {
   } else {
       console.log("Geolocation is not supported by this browser.");
   }
+
 };
+
+initAutocomplete();
 
 function dataRequest(map, lat, lng) {
   $.ajax('//api.instagram.com/v1/media/search/?', {
@@ -87,13 +90,14 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
+          // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.map(info.data, function (itemRecord) {
             // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
-          loopData(globalInfo);
+          // loopData(globalInfo);
+          // chartLoad();
         } //Else no photos show
        }
   });
@@ -136,26 +140,23 @@ function setInstPostMarkers(map, instPosts) {
     var embed = instPosts[2];
     embed = embed.match(/\/p\/(.*)\//)[1]
     console.log(embed);
-    var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-        '</div>';
+    // var content = '<div class="infowindow-content"><blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">If only Bradley&#39;s arm was longer. Best photo ever. <a href="https://twitter.com/hashtag/oscars?src=hash">#oscars</a> <a href="http://t.co/C9U5NOtGap">pic.twitter.com/C9U5NOtGap</a></p>&mdash; Ellen DeGeneres (@TheEllenShow) <a href="https://twitter.com/TheEllenShow/status/440322224407314432">March 3, 2014</a></blockquote></div>';
+    var content = '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>';
 
     var infowindow = new google.maps.InfoWindow({
       content: content
     });
-    var smoothZoom = function(map, max, cnt) {
-      if (cnt >= max) {
-          return;
-      }
-      else {
-          z = google.maps.event.addListener(map, 'zoom_changed', function(event){
-              google.maps.event.removeListener(z);
-              smoothZoom(map, max, cnt + 1);
-              map.setCenter(pos);
-              console.log('zoom change')
-          });
-          setTimeout(function(){map.setZoom(cnt)}, 100);
-      }
-    };
+    google.maps.event.addListener(infowindow, 'domready', function () {
+        ! function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+          }(document, "script", "twitter-wjs");
+        });
     // Click event on Instagram Image
     google.maps.event.addListener(
         marker, 'click',
@@ -163,14 +164,8 @@ function setInstPostMarkers(map, instPosts) {
           infowindow.open(map,marker);
           map.setZoom(15);
           map.setCenter(pos);
+          console.log(marker);
           //showEmbed(this.link);
-    });
-    google.maps.event.addListener(
-        marker, 'dblclick',
-        function(){
-        console.log('image click')
-        infowindow.open(map,marker);
-        smoothZoom(map, 15, map.getZoom());
     });
     google.maps.event.addListener(infowindow,'closeclick',function(){
           map.setZoom(4);
