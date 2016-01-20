@@ -26,6 +26,12 @@ $(document).ready(function () {
               zoom: 4,
               center: {lat: lat - 10, lng: lng}
             });
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            map.addListener('bounds_changed', function() {
+              searchBox.setBounds(map.getBounds());
+             });
 
             //Send hub data (lat and lng) to make request in instagram api
             //** _.each(hubInfo, function (hubData) {
@@ -60,6 +66,7 @@ $(document).ready(function () {
     }
   }
 
+
   function dataRequest(map, lat, lng) {
     $.ajax('//api.instagram.com/v1/media/search/?', {
         type: 'GET',
@@ -67,8 +74,8 @@ $(document).ready(function () {
         data: {
           distance: 5000,
           count: 100,
-          lat: lat,
-          lng: lng,
+          lat: -37.81,
+          lng: 144.96,
           access_token: "<%= ENV['access_token'] %>"
         },
         success: function(info) {
@@ -81,8 +88,8 @@ $(document).ready(function () {
           if (info.hasOwnProperty('data') && info.data.length > 0) {
             var instPosts = [];
             var chartInfo = [];
-            _.map(info.data, function (itemRecord) {
-              instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
+            _.each(info.data, function (itemRecord) {
+              instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time]);
               chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
             });
             setInstPostMarkers(map, instPosts);
@@ -90,15 +97,25 @@ $(document).ready(function () {
          }
     });
   }
+  var markers = [];
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
 
   function setInstPostMarkers(map, instPosts) {
     var markers = [];
+     _.each(instPosts, function (eachPost, i) {
       var image = {
-        url: instPosts[3],
+        // url: instPosts[3],
+        url: eachPost[3],
         scaledSize: new google.maps.Size(64, 64),
       };
-
-      var pos = new google.maps.LatLng(instPosts[0], instPosts[1]);
+     // console.log('map:', inst + '*** image: ', image);
+      var pos = new google.maps.LatLng(eachPost[0], eachPost[1]);
+      console.log('pos: ', pos);
       for (var j = 0; j < markers.length; j++) {
         if (i != j && pos.equals(markers[j].getPosition())) {
             var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
@@ -112,7 +129,8 @@ $(document).ready(function () {
         icon: image,
     //  animation: google.maps.Animation.BOUNCE,
         zIndex: 2,
-        title: instPosts[2],
+        // title: instPosts[2],
+        title: eachPost[2],
         optimized: false      //To allow marker custom in css
       });
 
@@ -123,7 +141,8 @@ $(document).ready(function () {
       };
       myoverlay.setMap(map);
 
-      var embed = instPosts[2];
+      // var embed = instPosts[2];
+      var embed = eachPost[2];
       embed = embed.match(/\/p\/(.*)\//)[1]
       console.log(embed);
       var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
@@ -132,6 +151,9 @@ $(document).ready(function () {
       var infowindow = new google.maps.InfoWindow({
         content: content
       });
+
+
+      //zoom function for map, can be removed probably not needed
       var smoothZoom = function(map, max, cnt) {
         if (cnt >= max) {
             return;
@@ -165,9 +187,12 @@ $(document).ready(function () {
       google.maps.event.addListener(infowindow,'closeclick',function(){
             map.setZoom(4);
       });
+      //stops zoom out when map clicked not close button click
       google.maps.event.addListener(map, 'click', function() {
             infowindow.close();
       });
+
     markers.push(marker);
+    });
     }
 });
