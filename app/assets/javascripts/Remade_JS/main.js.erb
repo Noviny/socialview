@@ -5,6 +5,8 @@ $(document).ready(function () {
 });
 
 
+var globalInfo;
+
 function getDefaultMapValues() {
   $.ajax({
     url: 'hub',
@@ -75,18 +77,11 @@ function dataRequest(map, lat, lng) {
         access_token: "<%= ENV['access_token'] %>"
       },
       success: function(info) {
-        // console.log('info:' ,info) // Uncomment later
-
-        // get rid of this later
-        document.chartInfo = info;
-        // console.log("this is the one you need",info);
-        //
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          var chartInfo = [];
+          globalInfo = info.data //Harry's data, mess with it pls :)
           _.map(info.data, function (itemRecord) {
-            instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
-            chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
+            instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
         } //Else no photos show

@@ -1,4 +1,3 @@
-
 // $(document).ready(function(){
 //   console.log(moment("20111031", "YYYYMMDD").fromNow());
 //   console.log("charInfo from info.js", document.chartInfo);
