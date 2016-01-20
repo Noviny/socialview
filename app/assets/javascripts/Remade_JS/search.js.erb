@@ -5,6 +5,7 @@ $(document).ready( function () {
   var lat = -23.697752;
   var lng = 133.880067;
 
+
   //Get form contents
   $("#search-bar").on('submit', function (e) {
     e.preventDefault();
@@ -18,9 +19,11 @@ $(document).ready( function () {
     }
 
     function searchByTagName(searchVal) {
+      console.log("SERACH BY TAG NAME");
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
           type: 'GET',
           dataType: 'jsonp',
+          timeout: 1000,
           data: {
             access_token: "<%= ENV['access_token'] %>"
           },
@@ -45,6 +48,8 @@ $(document).ready( function () {
             }
 
           }
+      // }).fail(function (data) {
+      //   $('#messageModal').modal('show');
       });
     }
 

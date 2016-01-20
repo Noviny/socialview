@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  getDefaultMapValues()
+  getDefaultMapValues();
 
   $("#search-by-tag").addClass("active")
   $(".btn-group > .btn").click(function(){
@@ -45,7 +45,9 @@ function getLocation(hubInfo) {
 
         /** TEMPORARY SHOW ONE RECORD **/
           console.log("hubInfo-Lat: ", hubInfo[0].latitude);
-          dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
+      //    setInterval(function () {
+            dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
+      //    }, 5000);
 
 
         },
