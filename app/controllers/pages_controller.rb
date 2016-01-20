@@ -18,8 +18,9 @@ class PagesController < ApplicationController
 
     client = Twitter::REST::Client.new(config)
 
-    @things = client.search("#javascript", result_type: "recent").take(3)
-    raise "hell"
+    things = client.search("#javascript", result_type: "recent").take(3)
+    tweet = things.first
+    @url = "https://api.twitter.com/1/statuses/oembed.json?url=https://twitter.com/Interior/status/" + tweet.id.to_s
   end
 
   # GET /pages/1
