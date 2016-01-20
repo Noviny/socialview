@@ -3,6 +3,16 @@ $(document).ready( function () {
   var lat = -23.697752;
   var lng = 133.880067;
 
+$.ajaxSetup({
+   statusCode : {
+     // called on `$.get()` , `$.post()`, `$.ajax()`
+     // when response status code is `404`
+     404 : function (jqxhr, textStatus, errorThrown) {
+             console.log(textStatus, errorThrown);
+           }
+     }
+ });
+
   //Get form contents
   $("#search-bar").on('submit', function (e) {
     e.preventDefault();
@@ -16,9 +26,11 @@ $(document).ready( function () {
     }
 
     function searchByTagName(searchVal) {
+      console.log("SERACH BY TAG NAME");
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
           type: 'GET',
           dataType: 'jsonp',
+          timeout: 1000,
           data: {
             access_token: "<%= ENV['access_token'] %>"
           },
@@ -38,6 +50,8 @@ $(document).ready( function () {
               $('#messageModal').modal('show');
             }
           }
+      }).fail(function (data) {
+        debugger;
       });
     }
 
