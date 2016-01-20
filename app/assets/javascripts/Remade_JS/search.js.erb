@@ -33,27 +33,22 @@ $(document).ready( function () {
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
                   instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
+                  setToTagsResultPage(info.data);
+                  setInstPostMarkers(instPosts);
+
+                } else {
+                  $('#messageModal').modal('show');
                 }
               });
-<<<<<<< HEAD
-              setToTagsResultPage(instPosts);
-              setInstPostMarkers(instPosts);
 
               loopData(globalInfo); // This is where I populate my chart data varables
               chartLoad(); // This is when i load the data into the chart and the chart onto the info page
 
-            } //Else no photos show
-=======
 
-              setToTagsResultPage(info.data);
-              setInstPostMarkers(instPosts);
-            } else {
-              $('#messageModal').modal('show');
-            }
->>>>>>> cc54a7ce55aa21cfd47eac297c0767e178b8a31f
+
           }
-      });
-    }
+      }
+    })
 
     function setToTagsResultPage(instPosts) {
       $('.-right').addClass('-on');
@@ -179,7 +174,7 @@ $(document).ready( function () {
         var image = {
           url: eachPost[3],
           scaledSize: new google.maps.Size(64, 64),
-        };
+        }});
 
         var pos = new google.maps.LatLng(eachPost[0], eachPost[1]);
         for (var j = 0; j < markers.length; j++) {
@@ -201,7 +196,7 @@ $(document).ready( function () {
 
         // Apply custom css for marker
         var myoverlay = new google.maps.OverlayView();
-        myoverlay.draw = function () {
+        myoverlay.draw = function (){
            this.getPanes().markerLayer.id='markerLayer';
         };
         myoverlay.setMap(map);
@@ -209,13 +204,13 @@ $(document).ready( function () {
         var embed = eachPost[2];
         embed = embed.match(/\/p\/(.*)\//)[1]
 
-        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">' + '</iframe>' +
             '</div>';
 
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
-        var smoothZoom = function(map, max, cnt) {
+        var smoothZoom = function(map, max, cnt){
           if (cnt >= max) {
               return;
           }
@@ -232,7 +227,7 @@ $(document).ready( function () {
         // Click event on Instagram Image
         google.maps.event.addListener(
             marker, 'click',
-            function() {
+            function(){
               infowindow.open(map,marker);
               map.setZoom(16);
               map.setCenter(pos);
