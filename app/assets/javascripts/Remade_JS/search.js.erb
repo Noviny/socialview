@@ -17,7 +17,7 @@ $(document).ready( function () {
       searchByUserName(searchVal);
     }
 
-    function searchByTagName(searchVal) {
+    function searchByTagName (searchVal){
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
           type: 'GET',
           dataType: 'jsonp',
@@ -225,3 +225,5 @@ $(document).ready( function () {
     }
   });
 });
+
+

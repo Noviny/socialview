@@ -1,6 +1,10 @@
+var globalMap;
+
+
+
 $(document).ready(function () {
 
-  getDefaultMapValues()
+  getDefaultMapValues();
 
   $("#search-by-tag").addClass("active")
   $(".btn-group > .btn").click(function(){
@@ -12,7 +16,10 @@ $(document).ready(function () {
 //Defining which search param is selected:
 var searchParam = 'tag'
 
-var globalInfo; // Harrys fucking variable // Ben touch this and you will die !
+
+
+
+var globalInfo;
 
 function getDefaultMapValues() {
   $.ajax({
@@ -25,6 +32,7 @@ function getDefaultMapValues() {
   });
 };
 
+
 function getLocation(hubInfo) {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition (
@@ -34,7 +42,7 @@ function getLocation(hubInfo) {
           var lng = 133.880067;
           var currPosLat = showPosition.coords.latitude;
           var currPosLng = showPosition.coords.longitude;
-          var map = new google.maps.Map(document.getElementById('map'), {
+          var map = globalMap || new google.maps.Map(document.getElementById('map'), {
             zoom: 4,
             center: {lat: lat - 10, lng: lng}
           });
@@ -86,13 +94,11 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
+          globalInfo = info.data //Harry's data, mess with it pls :)
           _.map(info.data, function (itemRecord) {
-            // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
-          loopData(globalInfo);
         } //Else no photos show
        }
   });
@@ -166,7 +172,7 @@ function setInstPostMarkers(map, instPosts) {
     google.maps.event.addListener(
         marker, 'dblclick',
         function(){
-        console.log('image click')
+        // console.log('image click')
         infowindow.open(map,marker);
         smoothZoom(map, 15, map.getZoom());
     });
@@ -178,3 +184,12 @@ function setInstPostMarkers(map, instPosts) {
     });
   markers.push(marker);
 }
+
+
+
+
+
+
+
+
+

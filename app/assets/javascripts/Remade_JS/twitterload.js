@@ -1,5 +1,5 @@
 $(document).ready( function () {
-  // getTweets()
+  getTweets()
 })
 
 
@@ -13,7 +13,11 @@ function getTweets() {
     dataType: 'json',
     success: function (tweetInfo) {
       tweets = tweetInfo;
-      console.log('ready')
+      console.log("Tweets is ", tweets)
+      _.each(tweets.tweets, function (tweet) {
+        setTweetsMarkers(tweet)
+      })
+      // setTweetsMarkers(tweetInfo)
     }
   });
 };
@@ -25,20 +29,20 @@ var lat = -23.697752;
 var lng = 133.880067;
 
 
-function setTweetsMarkers(tweetPosts) {
-  var map = new google.maps.Map(document.getElementById('map'), {
+
+var globalMap;
+
+function setTweetsMarkers(tweet) {
+  map = globalMap || new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         center: {lat: lat - 10, lng: lng}
       });
       map.set('styles', mapStyles);
 
   var markers = [];
-    var image = {
-      url: tweetPosts[3],
-      scaledSize: new google.maps.Size(64, 64),
-    };
+  var image = "https://placebear.com/100/100"
 
-    var pos = new google.maps.LatLng(tweetPosts[0], tweetPosts[1]);
+    var pos = new google.maps.LatLng(tweet.geo.coordinates[0], tweet.geo.coordinates[1]);
     for (var j = 0; j < markers.length; j++) {
       if (i != j && pos.equals(markers[j].getPosition())) {
           var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
@@ -52,7 +56,7 @@ function setTweetsMarkers(tweetPosts) {
       icon: image,
   //  animation: google.maps.Animation.BOUNCE,
       zIndex: 2,
-      title: tweetPosts[2],
+      title: "tweetPosts[2]",
       optimized: false      //To allow marker custom in css
     });
 
@@ -63,10 +67,10 @@ function setTweetsMarkers(tweetPosts) {
     };
     myoverlay.setMap(map);
 
-    var embed = tweetPosts[2];
-    embed = embed.match(/\/p\/(.*)\//)[1]
-    console.log(embed);
-    var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+    // var embed = "tweetPosts[2]";
+    // embed = embed.match(/\/p\/(.*)\//)[1]
+    // console.log(embed);
+    var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + "embed" + '/embed/?v=6">'+ '</iframe>' +
         '</div>';
 
     var infowindow = new google.maps.InfoWindow({
@@ -110,4 +114,3 @@ function setTweetsMarkers(tweetPosts) {
     });
   markers.push(marker);
 }
-
