@@ -1,3 +1,7 @@
+var global;
+
+
+
 $(document).ready(function () {
 
   getDefaultMapValues();
@@ -75,7 +79,7 @@ $(document).ready(function () {
           // console.log('info:' ,info) // Uncomment later
 
           // get rid of this later
-          document.chartInfo = info;
+          // window.chartInfo = info;
           console.log("this is the one you need",info);
           //
           if (info.hasOwnProperty('data') && info.data.length > 0) {
@@ -86,7 +90,9 @@ $(document).ready(function () {
               chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
             });
             setInstPostMarkers(map, instPosts);
+            loopData(chartInfo);
           } //Else no photos show
+
          }
     });
   }

@@ -24,30 +24,44 @@
 //   });
 // };
 
+global
 
 
-
-
-setTimeout(function(){
 
 var time = []; //system time
 var likes = [];
 var comments = [];
 var convertedTime = []; // human time
 
+// setTimeout(function(){
+var loopData = function (chartInfo) {
+  chartInfo.forEach(function(chart){
+    console.log("loop running");
+    console.log( chart[8] );
+    // time.push(chart.created_time);
+    // likes.push(chart.likes.count);
+    console.log(chart);
+    // comments.push(chart.comments.count);
+  });
+}
 
 
-document.chartInfo.data.forEach(function(chart){
-  console.log("loop running");
-  time.push(chart.created_time);
-  likes.push(chart.likes.count);
-  comments.push(chart.comments.count);
-});
+$(document).ready(function(){
+
+// document.chartInfo.forEach(function(chart){
+//   console.log("loop running");
+//   time.push(chart.created_time);
+//   likes.push(chart.likes.count);
+//   comments.push(chart.comments.count);
+// });
 
 
 var timeConvert = function(time){
   for (var i = 0; i < time.length; i++) {
-  convertedTime.push(moment.unix(~~(time[i])).format('h:mm:ss:ms'));
+    var time = parseInt( time[i] );
+    time = moment.unix(time).format('h:mm:ss:ms');
+
+    convertedTime.push( time );
   };
 };
 
@@ -55,4 +69,8 @@ timeConvert(time);
 
 console.log("this is the converted time", convertedTime, "This is the likes", likes, "This is the comments", comments);
 
-}, 8000);
+});
+
+
+
+// }, 8000);
