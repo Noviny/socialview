@@ -2,7 +2,6 @@ $(document).ready( function () {
   //Set map to Australia
   var lat = -23.697752;
   var lng = 133.880067;
-  //Why is this not stored in global variables?
 
   //Get form contents
   $("#search-bar").on('submit', function (e) {
@@ -26,13 +25,12 @@ $(document).ready( function () {
             access_token: "<%= ENV['access_token'] %>"
           },
           success: function(info) {
-            console.log("Info: ", info);
             if (info.hasOwnProperty('data') && info.data.length > 0) {
               var instPosts = [];
 
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
-                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags]);
+                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.tags, itemRecord.location.id, itemRecord.user.full_name]);
                 }
               });
 
@@ -44,25 +42,39 @@ $(document).ready( function () {
     }
 
     function setToTagsResultPage(instPosts) {
+      $('#results').empty();
+
       _.each(instPosts, function (eachPost) {
-        $('#results').append('<li><a id= "' + eachPost[4][0] + '" href="' +eachPost[4][0]+ '">' + eachPost[4][0]+ '</a></li>');
+        $('#results').append('<li><a id= "' + eachPost[5] + '" href="' +eachPost[4][0]+ '">' + eachPost[4][0]+ ' by ' +eachPost[6]+ '</a></li>');
       });
 
-      // linkToTheTagInfo(instPosts);
+      linkToTheTagInfo();
     }
 
-    // function linkToTheTagInfo (instPosts) {
-    //   var map = new google.maps.Map(document.getElementById('map'), {
-    //     zoom: 2,
-    //     center: {lat: lat - 10, lng: lng}
-    //   });
-    //   map.set('styles', mapStyles);
+    function linkToTheTagInfo () {
+      $("#results a").on('click', function (e) {
+        e.preventDefault();
+        $('.-right').removeClass('-on');
 
-    //   $("#results a").on('click', function (e) {
-    //   e.preventDefault();
-    //   instPosts =
+        $.ajax('//api.instagram.com/v1/locations/' + this.id + '/media/recent/?', {
+            type: 'GET',
+            dataType: 'jsonp',
+            data: {
+              access_token: "<%= ENV['access_token'] %>"
+            },
+            success: function(info) {
+              var instPosts = [];
 
-    // }
+              _.each(info.data, function (itemRecord) {
+                if (itemRecord.location) {
+                  instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
+                }
+              });
+              setInstPostMarkers(instPosts);
+            }
+        });
+      });
+    }
 
     function searchByUserName(searchVal) {
       $.ajax('//api.instagram.com/v1/users/search?', {
@@ -89,6 +101,7 @@ $(document).ready( function () {
 
     function setToUsersResultPage(usersList) {
       $('.-right').addClass('-on');
+      $('#results').empty();
 
       _.each(usersList, function (eachUser) {
         $('#results').append('<li><a id= "' + eachUser[0] + '" href="' +eachUser[0]+ '">' + eachUser[1]+ '</a></li>');
@@ -131,6 +144,7 @@ $(document).ready( function () {
       map.set('styles', mapStyles);
 
       var markers = [];
+
       _.each(instPosts, function (eachPost) {
         var image = {
           url: eachPost[3],
@@ -171,15 +185,40 @@ $(document).ready( function () {
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
-
+        var smoothZoom = function(map, max, cnt) {
+          if (cnt >= max) {
+              return;
+          }
+          else {
+              z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+                  google.maps.event.removeListener(z);
+                  smoothZoom(map, max, cnt + 1);
+                  map.setCenter(pos);
+                  console.log('zoom change');
+              });
+              setTimeout(function(){map.setZoom(cnt)}, 100);
+          }
+        };
         // Click event on Instagram Image
         google.maps.event.addListener(
-          marker, 'click',
-          function() {
-          infowindow.open(map,marker);
-          map.setZoom(15);
-          map.setCenter(pos);
-
+            marker, 'click',
+            function() {
+              infowindow.open(map,marker);
+              map.setZoom(16);
+              map.setCenter(pos);
+        });
+        google.maps.event.addListener(
+            marker, 'dblclick',
+            function(){
+            console.log('image click')
+            infowindow.open(map,marker);
+            smoothZoom(map, 16, map.getZoom());
+        });
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+              map.setZoom(2);
+        });
+        google.maps.event.addListener(map, 'click', function() {
+              infowindow.close();
         });
         markers.push(marker);
       });

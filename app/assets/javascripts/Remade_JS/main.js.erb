@@ -2,7 +2,17 @@ $(document).ready(function () {
 
   getDefaultMapValues();
 
+  $("#search-by-tag").addClass("active")
+  $(".btn-group > .btn").click(function(){
+      $(this).addClass("active").siblings().removeClass("active");
+  });
+
 });
+
+//Defining which search param is selected:
+var searchParam = 'tag'
+
+
 
 
 var globalInfo;
