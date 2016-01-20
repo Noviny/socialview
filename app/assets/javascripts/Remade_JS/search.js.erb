@@ -40,11 +40,22 @@ $(document).ready( function () {
                   $('#messageModal').modal('show');
                 }
               });
+<<<<<<< HEAD
 
               loopData(globalInfo); // This is where I populate my chart data varables
               chartLoad(); // This is when i load the data into the chart and the chart onto the info page
 
 
+=======
+              setToTagsResultPage(info.data);
+              setInstPostMarkers(instPosts);
+              loopData(globalInfo); // This is where I populate my chart data varables
+              chartLoad(); // This is when i load the data into the chart and the chart onto the info page
+
+            } else {
+              $('#messageModal').modal('show');
+            }
+>>>>>>> a8245d8c15554d9812d82c6b0e214b1ba14e64bb
 
           }
       }
