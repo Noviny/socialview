@@ -30,6 +30,15 @@
 
 // "https://api.twitter.com/1/statuses/oembed.json?
 // url=https://twitter.com/Interior/status/#{tweet.id}"
+// Return only with geo
+// Give geo in functions
+//
+
+
+
+//oembed request function (taking in tweet id) and get .html
+
+
 
 
 

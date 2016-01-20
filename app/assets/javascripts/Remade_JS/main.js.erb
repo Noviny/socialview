@@ -136,8 +136,7 @@ function setInstPostMarkers(map, instPosts) {
     var embed = instPosts[2];
     embed = embed.match(/\/p\/(.*)\//)[1]
     console.log(embed);
-    var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-        '</div>';
+    var content = '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>';
 
     var infowindow = new google.maps.InfoWindow({
       content: content
