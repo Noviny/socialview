@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  getDefaultMapValues();
+  getDefaultMapValues()
 
   $("#search-by-tag").addClass("active")
   $(".btn-group > .btn").click(function(){
@@ -12,10 +12,7 @@ $(document).ready(function () {
 //Defining which search param is selected:
 var searchParam = 'tag'
 
-
-
-
-var globalInfo;
+var globalInfo; // Harrys fucking variable // Ben touch this and you will die !
 
 function getDefaultMapValues() {
   $.ajax({
@@ -89,11 +86,13 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          globalInfo = info.data //Harry's data, mess with it pls :)
+          globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.map(info.data, function (itemRecord) {
+            // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
+          loopData(globalInfo);
         } //Else no photos show
        }
   });
