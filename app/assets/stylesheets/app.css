@@ -123,7 +123,6 @@ body, html{
   text-align:center;
   width:320px;
   z-index:1001;
-<<<<<<< HEAD
   min-height: 300px;
   position: absolute;
 }
@@ -145,10 +144,8 @@ body, html{
 .pac-container {
   font-family: Roboto;
 }
-=======
-}
 
-<<<<<<< HEAD
+
 .info {
   text-align: center;
   margin: 0 auto;
@@ -166,7 +163,7 @@ canvas {
   color: red;
   border: 5px solid red;
 }
-=======
+
 .modal-header-warning {
   color:#fff;
   padding:9px 15px;
@@ -179,5 +176,10 @@ canvas {
    border-top-left-radius: 5px;
    border-top-right-radius: 5px;
 }
->>>>>>> cc54a7ce55aa21cfd47eac297c0767e178b8a31f
->>>>>>> 671fbd140a598c3458aa0af90f8129b5b61e598f
+
+
+.photo-result {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+}
