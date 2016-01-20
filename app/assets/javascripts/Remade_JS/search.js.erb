@@ -2,6 +2,7 @@ $(document).ready( function () {
   //Set map to Australia
   var lat = -23.697752;
   var lng = 133.880067;
+  //Why is this not stored in global variables?
 
   //Get form contents
   $("#search-bar").on('submit', function (e) {
@@ -181,7 +182,7 @@ $(document).ready( function () {
 
         });
         markers.push(marker);
-       });
-      }
-    });
+      });
+    }
+  });
 });

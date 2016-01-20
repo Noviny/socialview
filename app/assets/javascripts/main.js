@@ -1,9 +1,4 @@
-// var global;
-
-
-
 // $(document).ready(function () {
-// <!-- $(document).ready(function () {
 
 //   getDefaultMapValues();
 
@@ -38,7 +33,7 @@
 //             //** });
 
 //           /** TEMPORARY SHOW ONE RECORD **/
-//             console.log("hubInfo-Lat: ", hubInfo[0].latitude);
+//             console.log("hubInfo-Lat: ", hubInfo.latitude);
 //             dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
 
 //             map.set('styles', mapStyles);
@@ -66,34 +61,24 @@
 //   }
 
 //   function dataRequest(map, lat, lng) {
-//     $.ajax('//api.instagram.com/v1/media/search/?', {
+//     $.ajax('http://api.instagram.com/v1/media/search/?', {
 //         type: 'GET',
 //         dataType: 'jsonp',
 //         data: {
-//           distance: 5000,
-//           count: 100,
+//           distance: 500,
+//           count: 1,
 //           lat: lat,
 //           lng: lng,
-//           access_token: "<%= ENV['access_token'] %>"
+//           access_token: '2583670140.1677ed0.386c99d44c5e4bf592e15f81625e8c79'
 //         },
 //         success: function(info) {
-//           // console.log('info:' ,info) // Uncomment later
-
-//           // get rid of this later
-//           // window.chartInfo = info;
-//           console.log("this is the one you need",info);
-//           //
 //           if (info.hasOwnProperty('data') && info.data.length > 0) {
 //             var instPosts = [];
-//             var chartInfo = [];
 //             _.map(info.data, function (itemRecord) {
-//               instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.link, itemRecord.images.thumbnail.url, itemRecord.likes.count, itemRecord.comments.count, itemRecord.created_time];
-//               chartInfo.push(instPosts); // Please dont fuck with this or ill kill you // Thanks harry <3 //
+//               instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
 //             });
 //             setInstPostMarkers(map, instPosts);
-
 //           } //Else no photos show
-
 //          }
 //     });
 //   }
@@ -117,7 +102,7 @@
 //         position: pos,
 //         map: map,
 //         icon: image,
-//     //  animation: google.maps.Animation.BOUNCE,
+//       //  animation: google.maps.Animation.BOUNCE,
 //         zIndex: 2,
 //         title: instPosts[2],
 //         optimized: false      //To allow marker custom in css
@@ -133,48 +118,20 @@
 //       var embed = instPosts[2];
 //       embed = embed.match(/\/p\/(.*)\//)[1]
 //       console.log(embed);
-//       var content = '<div id="iw_container">' + '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+//       var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
 //           '</div>';
 
 //       var infowindow = new google.maps.InfoWindow({
 //         content: content
 //       });
-//       var smoothZoom = function(map, max, cnt) {
-//         if (cnt >= max) {
-//             return;
-//         }
-//         else {
-//             z = google.maps.event.addListener(map, 'zoom_changed', function(event){
-//                 google.maps.event.removeListener(z);
-//                 smoothZoom(map, max, cnt + 1);
-//                 map.setCenter(pos);
-//                 console.log('zoom change')
-//             });
-//             setTimeout(function(){map.setZoom(cnt)}, 100);
-//         }
-//       };
 //       // Click event on Instagram Image
 //       google.maps.event.addListener(
 //           marker, 'click',
 //           function() {
+//             console.log('image click')
 //             infowindow.open(map,marker);
-//             map.setZoom(15);
-//             map.setCenter(pos);
 //             //showEmbed(this.link);
-//       });
-//       google.maps.event.addListener(
-//           marker, 'dblclick',
-//           function(){
-//           console.log('image click')
-//           infowindow.open(map,marker);
-//           smoothZoom(map, 15, map.getZoom());
-//       });
-//       google.maps.event.addListener(infowindow,'closeclick',function(){
-//             map.setZoom(4);
-//       });
-//       google.maps.event.addListener(map, 'click', function() {
-//             infowindow.close();
 //       });
 //     markers.push(marker);
 //     }
-// }); -->
+// });

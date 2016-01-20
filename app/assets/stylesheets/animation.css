@@ -106,3 +106,7 @@
 .overlay.-login.-on {
   top: 0;
 }
+
+.content li a {
+  color: #fff;
+}
