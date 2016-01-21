@@ -44,11 +44,11 @@ function mapSearchShow() {
         lng: mapSearchLng,
         access_token: "<%= ENV['access_token'] %>"
       },
-      success: function(info) {
-        if (info.hasOwnProperty('data') && info.data.length > 0) {
+      success: function(infoSearch) {
+        if (infoSearch.hasOwnProperty('data') && infoSearch.data.length > 0) {
 
-                setInstPostMarkers(info.data);
-                    globalInfo = info.data;
+                setPostMarkers(infoSearch.data);
+                    globalInfo = infoSearch.data;
                     loopData(globalInfo);
                     chartLoad();
 
@@ -58,7 +58,7 @@ function mapSearchShow() {
        }
     });
   }
-    function setInstPostMarkers(instPosts) {
+    function setPostMarkers(instPosts) {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         center: {lat: lat - 10, lng: lng}
