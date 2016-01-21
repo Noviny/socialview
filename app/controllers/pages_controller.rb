@@ -13,13 +13,16 @@ class PagesController < ApplicationController
       consumer_key: "3LFlsaB9Pcu5CxunbbDMaSj0q",
       consumer_secret: "85pYc6Zj2X7Pro7fsq6O42XYR96uESoG6x6o4brv7vWVOZzqli",
       access_token: "5629842-WFWEexpyKZZdIOD8XF97TUwdczkMAlWV84xxaUcxR5",
-      access_token_secret: "zm5HFu6LwhPljLzj0bqdvQe5tmbQkwd8JANTsxL2g2tco"
+      access_token_secret: "zm5HFu6LwhPljLzj0bqdvQe5tmbQkwd8JANTsxL2g2tco",
     }
 
     client = Twitter::REST::Client.new(config)
 
-    @things = client.search("#javascript", result_type: "recent").take(3)
-    raise "hell"
+    things = client.search("a", geocode: '37.781157,-122.398720,1mi', result_type: "recent", count: "100").take(100)
+    tweet = things.first
+
+    raise 'questions'
+    @url = "https://api.twitter.com/1/statuses/oembed.json?url=https://twitter.com/Interior/status/" + tweet.id.to_s
   end
 
   # GET /pages/1

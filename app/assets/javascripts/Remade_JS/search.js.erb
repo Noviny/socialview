@@ -10,9 +10,16 @@ $(document).ready( function () {
     searchVal = $('#searchValue').val();
     if ( $("#search-by-tag").hasClass("active") ) {
       searchByTagName(searchVal);
+    } else if ( $("#search-by-location").hasClass("active") ) {
+      searchByLocation(searchVal);
     } else {
       searchByUserName(searchVal);
     }
+
+    function searchByLocation(searchVal) {
+      mapSearch();
+      console.log("SEARCH")
+    };
     function searchByTagName(searchVal) {
       console.log("SERACH BY TAG NAME");
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
@@ -100,6 +107,11 @@ $(document).ready( function () {
           }
       });
     }
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> e4e8dfb647ed16081dcd5ba87d38c35ada722342
     function setToUsersResultPage(usersList) {
       $('.-right').addClass('-on');
       $('#results').empty();
@@ -175,20 +187,6 @@ $(document).ready( function () {
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
-        var smoothZoom = function(map, max, cnt) {
-          if (cnt >= max) {
-              return;
-          }
-          else {
-              z = google.maps.event.addListener(map, 'zoom_changed', function(event){
-                  google.maps.event.removeListener(z);
-                  smoothZoom(map, max, cnt + 1);
-                  map.setCenter(pos);
-                  console.log('zoom change');
-              });
-              setTimeout(function(){map.setZoom(cnt)}, 100);
-          }
-        };
         // Click event on Instagram Image
         google.maps.event.addListener(
             marker, 'click',
@@ -196,13 +194,6 @@ $(document).ready( function () {
               infowindow.open(map,marker);
               map.setZoom(16);
               map.setCenter(pos);
-        });
-        google.maps.event.addListener(
-            marker, 'dblclick',
-            function(){
-            console.log('image click')
-            infowindow.open(map,marker);
-            smoothZoom(map, 16, map.getZoom());
         });
         google.maps.event.addListener(infowindow,'closeclick',function(){
               map.setZoom(2);

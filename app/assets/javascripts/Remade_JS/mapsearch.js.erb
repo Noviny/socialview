@@ -1,0 +1,138 @@
+var mapSearchLat;
+var mapSearchLng;
+var center;
+var globalInfo;
+
+$(document).ready(function () {
+    $('ul.dropdown-menu li').on('click', function() {
+        var target = $(this).find("a").text();
+
+        mapSearchLat = window.currPosLat
+        mapSearchLng = window.currPosLng
+        mapSearchShow();
+    });
+});
+function mapSearch() {
+    // map.controls.push(input);
+     geocoder = new google.maps.Geocoder();
+     var address = $('#searchValue').val();
+     geocoder.geocode( { 'address': address}, function(results, status)
+        {
+            if (status == google.maps.GeocoderStatus.OK){
+                console.log(results[0].geometry.location);
+                mapSearchLat = (results[0].geometry.location.G);
+                mapSearchLng = (results[0].geometry.location.K);
+                center =  results[0].geometry.location;
+                console.log(mapSearchLat);
+                console.log(mapSearchLng);
+                mapSearchShow();
+            }else{
+                alert("Location Search was not successful for the following reason: " + status);
+            }
+        });
+};
+
+function mapSearchShow() {
+
+  $.ajax('//api.instagram.com/v1/media/search/?', {
+      type: 'GET',
+      dataType: 'jsonp',
+      data: {
+        distance: 5000,
+        count: 100,
+        lat: mapSearchLat,
+        lng: mapSearchLng,
+        access_token: "<%= ENV['access_token'] %>"
+      },
+      success: function(info) {
+        if (info.hasOwnProperty('data') && info.data.length > 0) {
+
+                setInstPostMarkers(info.data);
+                    globalInfo = info.data;
+                    loopData(globalInfo);
+                    chartLoad();
+
+        }else {
+            console.log('not working')
+        } //Else no photos show
+       }
+    });
+  }
+    function setInstPostMarkers(instPosts) {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: {lat: lat - 10, lng: lng}
+      });
+      map.set('styles', mapStyles);
+
+      var markers = [];
+      _.each(instPosts, function (eachPost) {
+        var image = {
+          url: eachPost.images.thumbnail.url,
+          scaledSize: new google.maps.Size(64, 64),
+        };
+
+        var pos = new google.maps.LatLng(eachPost.location.latitude, eachPost.location.longitude);
+        for (var j = 0; j < markers.length; j++) {
+          if (eachPost != j && pos.equals(markers[j].getPosition())) {
+              var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
+              var newLng = pos.lng() * (Math.random() * 0.00003 + 1);
+              pos = new google.maps.LatLng(newLat, newLng);
+          }
+        }
+
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: image,
+          zIndex: 2,
+          optimized: false      //To allow marker custom in css
+        });
+
+        // Apply custom css for marker
+        var myoverlay = new google.maps.OverlayView();
+        myoverlay.draw = function () {
+           this.getPanes().markerLayer.id='markerLayer';
+        };
+        myoverlay.setMap(map);
+        map.setCenter(new google.maps.LatLng(mapSearchLat, mapSearchLng), 14);
+        map.setZoom(14);
+
+        var embed = eachPost.link;
+        embed = embed.match(/\/p\/(.*)\//)[1]
+
+        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: content
+        });
+        // Click event on Instagram Image
+        google.maps.event.addListener(
+            marker, 'click',
+            function() {
+              infowindow.open(map,marker);
+              map.setZoom(14);
+              map.setCenter(pos);
+        });
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+              map.setZoom(14);
+        });
+        google.maps.event.addListener(map, 'click', function() {
+              infowindow.close();
+        });
+        markers.push(marker);
+      });
+    }
+
+
+//     var searchBox = new google.maps.Geocoder( $('#searchValue')[0] );
+//  geocoder.geocode( { 'address': address}, function(results, status) {
+//   if (status == google.maps.GeocoderStatus.OK)
+//   {
+
+//    console.log('lat: ', results[0].geometry.location.latitude)
+//    console.log('lng: ', results[0].geometry.location.longitude)
+
+
+// }
