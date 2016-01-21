@@ -251,8 +251,7 @@ $(document).ready( function () {
         var embed = eachPost.link;
 
         embed = embed.match(/\/p\/(.*)\//)[1]
-        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-            '</div>';
+        var content = '<iframe class="media" src="https://www.instagram.com/p/' + embed + '/embed/?v=6">' + '</iframe>';
         var infowindow = new google.maps.InfoWindow({
           content: content
         });

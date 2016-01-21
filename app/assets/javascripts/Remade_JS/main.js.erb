@@ -148,9 +148,9 @@ function setInstPostMarkers(map, instPosts) {
     var embed = eachPost[2];
     embed = embed.match(/\/p\/(.*)\//)[1]
     // var content = '<div class="infowindow-content"><blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">If only Bradley&#39;s arm was longer. Best photo ever. <a href="https://twitter.com/hashtag/oscars?src=hash">#oscars</a> <a href="http://t.co/C9U5NOtGap">pic.twitter.com/C9U5NOtGap</a></p>&mdash; Ellen DeGeneres (@TheEllenShow) <a href="https://twitter.com/TheEllenShow/status/440322224407314432">March 3, 2014</a></blockquote></div>';
-    var content = '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>';
+    var content = '<iframe class="media" src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>'; // iFrame to style
 
-    var infowindow = new google.maps.InfoWindow({
+    var infowindow = new google.maps.InfoWindow({ // This is the info box colin was talking about
       content: content
     });
     google.maps.event.addListener(infowindow, 'domready', function () {

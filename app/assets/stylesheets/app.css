@@ -193,11 +193,15 @@ canvas {
   width: 500px;
   height: 500px;
   overflow: hidden;
-<<<<<<< HEAD
 }
 
-span.link {
-  cursor: pointer;
-=======
->>>>>>> 1f2dc310b7228300e9e276238d04234d45112640
+
+.media {
+  min-height: 380px;
+  min-width: 300px;
+}
+
+.gm-style-iw {
+  width: 310px !important;
+  left: 18px !important;
 }
