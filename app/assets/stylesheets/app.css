@@ -194,3 +194,12 @@ canvas {
   height: 500px;
   overflow: hidden;
 }
+
+.media {
+  min-height: 380px;
+  min-width: 300px;
+}
+
+.gm-style-iw {
+  width: 310px !important;
+  left: 18px !important;
