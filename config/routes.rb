@@ -19,5 +19,6 @@ Rails.application.routes.draw do
 
   get '/hub' => 'hubs#index'
   get '/tweet' => 'tweets#index'
+  post '/tweet/search' => 'tweets#search'
 
 end

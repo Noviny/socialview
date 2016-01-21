@@ -8,17 +8,17 @@ $(document).ready(function () {
 
   getDefaultMapValues();
 
+
+    //This code toggles navbar button selection
   $("#search-by-tag").addClass("active")
+  $("#search-by-instagram").addClass("active")
   $(".btn-group > .btn").click(function(){
     $(this).addClass("active").siblings().removeClass("active");
   });
+
+
+
 });
-
-//Defining which search param is selected:
-var searchParam = 'tag'
-
-
-
 
 var globalInfo;
 
@@ -81,7 +81,7 @@ function getLocation(hubInfo) {
 
 };
 
-initAutocomplete();
+// initAutocomplete();
 
 
 function dataRequest(map, lat, lng) {

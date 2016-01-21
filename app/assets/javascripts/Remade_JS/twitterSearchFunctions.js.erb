@@ -1,0 +1,21 @@
+
+
+    var twitterSearch = function (searchFor) {
+      $.ajax('tweet/search', {
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          searchVal: searchVal,
+        },
+        success: function (info) {
+          data = info.tweets
+          console.log(data)
+          var twits = []
+          _.map(data, function (tweet) {
+            twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.id.toString(), "https://placebearcom/100/100"]);
+          })
+
+          setTweetsMarkers(twits)
+        }
+      })
+    }

@@ -3,7 +3,7 @@ var tweets;
 
 function getTweets() {
   $.ajax({
-    url: 'tweets',
+    url: 'tweet',
     type: 'GET',
     dataType: 'json',
     success: function (tweetInfo) {
@@ -67,10 +67,10 @@ var map;
         };
         myoverlay.setMap(map);
 
-        var embed = twit[2];
-        embed = embed.match(/\/p\/(.*)\//)[1]
+        // var embed = twit[2];
+        // embed = embed.match(/\/p\/(.*)\//)[1]
 
-        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
+        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + "embed" + '/embed/?v=6">'+ '</iframe>' +
             '</div>';
 
         var infowindow = new google.maps.InfoWindow({

@@ -7,9 +7,9 @@ $(document).ready(function () {
     $('ul.dropdown-menu li').on('click', function() {
         var target = $(this).find("a").text();
 
-        mapSearchLat = window.currPosLat
-        mapSearchLng = window.currPosLng
-        mapSearchShow();
+        // mapSearchLat = window.currPosLat
+        // mapSearchLng = window.currPosLng
+        // mapSearchShow();
     });
 });
 function mapSearch() {
@@ -47,7 +47,7 @@ function mapSearchShow() {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
 
-                setInstPostMarkers(info.data);
+                setLocationMarkers(info.data);
                     globalInfo = info.data;
                     loopData(globalInfo);
                     chartLoad();
@@ -58,7 +58,7 @@ function mapSearchShow() {
        }
     });
   }
-    function setInstPostMarkers(instPosts) {
+    function setLocationMarkers(instPosts) {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         center: {lat: lat - 10, lng: lng}
