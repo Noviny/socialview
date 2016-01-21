@@ -39,9 +39,10 @@ class TweetsController < ApplicationController
 
     client = Twitter::REST::Client.new(config)
 
-    tweet = params[tweetid]
+    # @tweet = params[tweetid]
 
-    things = client.oembed(params[tweetid])
+    things = client.oembed("250075927172759552")
+    @tweet = things.html
 
   end
 

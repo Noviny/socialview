@@ -1,21 +1,52 @@
-
-
-    var twitterSearch = function (searchFor) {
-      $.ajax('tweet/search', {
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          searchVal: searchVal,
-        },
-        success: function (info) {
-          data = info.tweets
-          console.log(data)
-          var twits = []
-          _.map(data, function (tweet) {
-            twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.id.toString(), "https://placebearcom/100/100"]);
-          })
-
-          setTweetsMarkers(twits)
-        }
+var twitterSearch = function (searchFor) {
+  $.ajax('tweet/search', {
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      searchVal: searchVal,
+    },
+    success: function (info) {
+      data = info.tweets
+      console.log(data)
+      var twits = []
+      _.map(data, function (tweet) {
+        twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.id.toString(), "https://placebearcom/100/100"]);
       })
+
+      setTweetsMarkers(twits)
     }
+  })
+}
+
+
+// Get an oembed thingy
+
+var generateEmbedKey = function (embedKey, marker, map, pos) {
+  $.ajax('tweet/embed', {
+    type: 'POST',
+    // method: 'POST',
+    dataType: 'json',
+    data: {
+      twitID: "250075927172759552"
+    },
+    success: function (info) {
+      console.log(" This is the embed ", info.tweet)
+
+        var infowindow = new google.maps.InfoWindow({
+          content: info.tweet
+        });
+
+        google.maps.event.addListener(
+            marker, 'click',
+            function() {
+              infowindow.open(map,marker);
+              map.setZoom(16);
+              map.setCenter(pos);
+        });
+
+        google.maps.event.addListener(infowindow,'closeclick',function(){
+              map.setZoom(2);
+        });
+    }
+  });
+}
