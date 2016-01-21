@@ -4,12 +4,12 @@ var center;
 var globalInfo;
 
 $(document).ready(function () {
-    $('ul.dropdown-menu li').on('click', function() {
+    $('#current-location-search').on('click', function() {
         var target = $(this).find("a").text();
 
-        // mapSearchLat = window.currPosLat
-        // mapSearchLng = window.currPosLng
-        // mapSearchShow();
+        mapSearchLat = window.currPosLat
+        mapSearchLng = window.currPosLng
+        mapSearchShow();
     });
 });
 function mapSearch() {
@@ -46,8 +46,7 @@ function mapSearchShow() {
       },
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
-
-                setLocationMarkers(info.data);
+                setPostMarkers(info.data);
                     globalInfo = info.data;
                     loopData(globalInfo);
                     chartLoad();
@@ -58,7 +57,8 @@ function mapSearchShow() {
        }
     });
   }
-    function setLocationMarkers(instPosts) {
+
+    function setPostMarkers(instPosts) {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         center: {lat: lat - 10, lng: lng}
