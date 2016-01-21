@@ -4,7 +4,7 @@ var center;
 var globalInfo;
 
 $(document).ready(function () {
-    $('ul.dropdown-menu li').on('click', function() {
+    $('#current-location-search').on('click', function() {
         var target = $(this).find("a").text();
 
         mapSearchLat = window.currPosLat
@@ -58,6 +58,7 @@ function mapSearchShow() {
        }
     });
   }
+
     function setPostMarkers(instPosts) {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,

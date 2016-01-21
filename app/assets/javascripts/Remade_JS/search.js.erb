@@ -96,13 +96,19 @@ $(document).ready( function () {
   $("#search-bar").on('submit', function (e) {
     e.preventDefault();
     searchVal = $('#searchValue').val();
-    if ( $("#search-by-tag").hasClass("active") ) {
-      searchByTagName(searchVal);
-    } else if ( $("#search-by-location").hasClass("active") ) {
-      searchByLocation(searchVal);
+    if ( $("#search-by-instagram").hasClass("active") ) {
+      if ( $("#search-by-tag").hasClass("active") ) {
+        searchByTagName(searchVal);
+      } else if ( $("#search-by-location").hasClass("active") ) {
+        searchByLocation(searchVal);
+      } else {
+        searchByUserName(searchVal);
+      }
     } else {
-      searchByUserName(searchVal);
+      twitterSearch(searchVal)
     }
+  });
+
 
     function searchByLocation(searchVal) {
       mapSearch();
@@ -274,6 +280,4 @@ $(document).ready( function () {
         markers.push(marker);
       });
     }
-
-  });
 });
