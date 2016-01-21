@@ -6,7 +6,6 @@ u3 = User.create :name => 'Colin', :email => 'colin@mail.com', :password => 'col
 u4 = User.create :name => 'Harry', :email => 'harry@mail.com', :password => 'harry', :password_confirmation => 'harry', :admin => true
 
 Hub.destroy_all
-
 h1 = Hub.create :name => 'Inner Sydney', :latitude => -33.86, :longitude => 151.20
 h3 = Hub.create :name => 'Parramatta', :latitude => -33.81, :longitude => 151.00
 h6 = Hub.create :name => 'Manly', :latitude => -33.79, :longitude => 151.28

@@ -134,7 +134,25 @@ body, html{
 }
 
 .close {
+  color: blue;
+  font-size: 120px;
+  font-weight: bold;
+  line-height: 18px;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  text-decoration: none;
+  position: absolute;
+  top: 12px;
+  right: 20px;
   background-color: white;
+}
+.close:hover {
+  color: #000000;
+  text-decoration: none;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  cursor: pointer;
 }
 
 #pac-input {
@@ -160,7 +178,7 @@ body, html{
 .info {
   text-align: center;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 canvas {
@@ -175,7 +193,7 @@ canvas {
   border: 5px solid red;
 }
 
-.modal-header-warning {
+ .modal-header-warning {
   color:#fff;
   padding:9px 15px;
   border-bottom:1px solid #eee;
@@ -195,6 +213,7 @@ canvas {
   overflow: hidden;
 }
 
+
 .media {
   min-height: 380px;
   min-width: 300px;
@@ -203,3 +222,13 @@ canvas {
 .gm-style-iw {
   width: 310px !important;
   left: 18px !important;
+
+}
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 10px;
+
+}
+
