@@ -188,7 +188,12 @@ canvas {
   bottom: 10%;
 }
 
-.modal-header-warning {
+#exit {
+  color: red;
+  border: 5px solid red;
+}
+
+ .modal-header-warning {
   color:#fff;
   padding:9px 15px;
   border-bottom:1px solid #eee;
@@ -208,6 +213,7 @@ canvas {
   overflow: hidden;
 }
 
+
 .media {
   min-height: 380px;
   min-width: 300px;
@@ -216,10 +222,13 @@ canvas {
 .gm-style-iw {
   width: 310px !important;
   left: 18px !important;
+<<<<<<< HEAD
 }
 
 .centered {
   text-align: center;
   margin: 0 auto;
   padding-top: 10px;
+=======
+>>>>>>> 3451617b9ffd2f1468e16dc184f8f2cb42c3834b
 }
