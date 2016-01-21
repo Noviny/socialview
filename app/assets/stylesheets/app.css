@@ -119,11 +119,13 @@ body, html{
 
 /*//// display div post ////*/
 
-.Embed {
+
+#Embed {
   text-align:center;
-  color:#D9534F;
   width:320px;
   z-index:1001;
+  min-height: 300px;
+  position: absolute;
 }
 
 #results-content {
@@ -133,4 +135,62 @@ body, html{
 
 .close {
   background-color: white;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+
+.info {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+canvas {
+  margin: 0 auto;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}
+
+#exit {
+  color: red;
+  border: 5px solid red;
+}
+
+.modal-header-warning {
+  color:#fff;
+  padding:9px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #f0ad4e;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+
+.photo-result {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
 }

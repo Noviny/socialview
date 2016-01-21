@@ -7,13 +7,10 @@ u4 = User.create :name => 'Harry', :email => 'harry@mail.com', :password => 'har
 
 Hub.destroy_all
 
-h1 = Hub.create :name => 'Sydney CBD', :latitude => -33.867737, :longitude => 151.207856
-h2 = Hub.create :name => 'North Sydney', :latitude => -33.838525, :longitude => 151.206453
-h3 = Hub.create :name => 'Parramatta', :latitude => -33.817578, :longitude => 151.003062
-h4 = Hub.create :name => 'Sydney Aiport', :latitude => -33.932683, :longitude => 151.179966
-h5 = Hub.create :name => 'Cronulla', :latitude => -34.052486, :longitude => 151.153204
-h6 = Hub.create :name => 'Manly', :latitude => -33.795837, :longitude => 151.286517
-h7 = Hub.create :name => 'Melbourne CBD', :latitude => -37.812468, :longitude => 144.962699
+h1 = Hub.create :name => 'Inner Sydney', :latitude => -33.86, :longitude => 151.20
+h3 = Hub.create :name => 'Parramatta', :latitude => -33.81, :longitude => 151.00
+h6 = Hub.create :name => 'Manly', :latitude => -33.79, :longitude => 151.28
+h7 = Hub.create :name => 'Melbourne CBD', :latitude => -37.81, :longitude => 144.96
 h8 = Hub.create :name => 'St Kilda', :latitude => -37.860116, :longitude => 144.977633
 h9 = Hub.create :name => 'Moonee Valley', :latitude => -37.766800, :longitude => 144.920670
 h10 = Hub.create :name => 'Frankston', :latitude => -38.144631, :longitude => 145.123741
