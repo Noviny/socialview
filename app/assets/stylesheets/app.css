@@ -119,6 +119,7 @@ body, html{
 
 /*//// display div post ////*/
 
+
 #Embed {
   text-align:center;
   width:320px;
@@ -126,6 +127,16 @@ body, html{
   min-height: 300px;
   position: absolute;
 }
+
+#results-content {
+  margin-top: 5em;
+  text-align: center;
+}
+
+.close {
+  background-color: white;
+}
+
 #pac-input {
   background-color: #fff;
   font-family: Roboto;
@@ -182,8 +193,11 @@ canvas {
   width: 500px;
   height: 500px;
   overflow: hidden;
+<<<<<<< HEAD
 }
 
 span.link {
   cursor: pointer;
+=======
+>>>>>>> 1f2dc310b7228300e9e276238d04234d45112640
 }

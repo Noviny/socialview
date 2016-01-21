@@ -95,17 +95,20 @@ $(document).ready( function () {
   //Get form contents
   $("#search-bar").on('submit', function (e) {
     e.preventDefault();
-
     searchVal = $('#searchValue').val();
-
     if ( $("#search-by-tag").hasClass("active") ) {
       searchByTagName(searchVal);
+    } else if ( $("#search-by-location").hasClass("active") ) {
+      searchByLocation(searchVal);
     } else {
       searchByUserName(searchVal);
     }
 
+    function searchByLocation(searchVal) {
+      mapSearch();
+    };
+
     function searchByTagName(searchVal) {
-      console.log("SERACH BY TAG NAME");
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
           type: 'GET',
           dataType: 'jsonp',
@@ -116,9 +119,7 @@ $(document).ready( function () {
           success: function(info) {
             if (info.hasOwnProperty('data') && info.data.length > 0) {
               var instPosts = [];
-
               globalInfo = info.data;
-
               _.each(info.data, function (itemRecord) {
                 if (itemRecord.location) {
                   instPosts.push([itemRecord]);
@@ -127,24 +128,21 @@ $(document).ready( function () {
               setToTagsResultPage(info.data);
               loopData(globalInfo); // This is where I populate my chart data varables
               chartLoad(); // This is when i load the data into the chart and the chart onto the info page
-
             } else {
               $('#messageModal').modal('show');
             }
-
           }
       // }).fail(function (data) {
       //   $('#messageModal').modal('show');
       });
     }
-
     function setToTagsResultPage(instPosts) {
       $('.-right').addClass('-on');
       $('#results').empty();
 
       _.each(instPosts, function (eachPost,i) {
-        var result;
 
+        var result;
         if (eachPost.location){
           $('#results').append('<li><a class="internal" data-link= "' + eachPost.link + '" data-latitude="' + eachPost.location.latitude + '" data-longitude="' + eachPost.location.longitude + '"data-url="' + eachPost.images.thumbnail.url +'" href="' +i+ '"><img src="' + eachPost.images.thumbnail.url+ '"> </a></li>');
         } else {
@@ -165,7 +163,6 @@ $(document).ready( function () {
           success: function(userInfo) {
             if (userInfo.hasOwnProperty('data') && userInfo.data.length > 0) {
               var usersList = [];
-
               _.each(userInfo.data, function (userItemRecord) {
                 if (userItemRecord.full_name) {
                   usersList.push([userItemRecord.id, userItemRecord.full_name]);
@@ -180,20 +177,16 @@ $(document).ready( function () {
     function setToUsersResultPage(usersList) {
       $('.-right').addClass('-on');
       $('#results').empty();
-
       _.each(usersList, function (eachUser) {
         $('#results').append('<li><a id= "' + eachUser[0] + '" href="' +eachUser[0]+ '">' + eachUser[1]+ '</a></li>');
       });
-
       linkUserInstActivities();
     }
 
     function linkUserInstActivities() {
       $("#results a").on('click', function (e) {
         e.preventDefault();
-
         $('.-right').removeClass('-on');
-
         $.ajax('//api.instagram.com/v1/users/' + this.id + '/media/recent/?', {
             type: 'GET',
             dataType: 'jsonp',
@@ -202,19 +195,16 @@ $(document).ready( function () {
             },
             success: function(userInfo) {
               var instPosts = [];
-
               _.each(userInfo.data, function (itemRecord) {
                 if (itemRecord.location) {
                   instPosts.push(itemRecord);
                 }
               });
-
               if (instPosts.length > 0){
                 $('#messageModal').modal('hide');
               } else {
                 $('#messageModal').modal('show');
               }
-
               setInstPostMarkers(instPosts);
             }
         });
@@ -233,7 +223,9 @@ $(document).ready( function () {
           url: eachPost.images.thumbnail.url,
           scaledSize: new google.maps.Size(64, 64),
         };
+
         var pos = new google.maps.LatLng(eachPost.location.latitude, eachPost.location.longitude);
+
         for (var j = 0; j < markers.length; j++) {
           if (eachPost != j && pos.equals(markers[j].getPosition())) {
               var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
@@ -255,7 +247,9 @@ $(document).ready( function () {
            this.getPanes().markerLayer.id='markerLayer';
         };
         myoverlay.setMap(map);
+
         var embed = eachPost.link;
+
         embed = embed.match(/\/p\/(.*)\//)[1]
         var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
             '</div>';

@@ -1,6 +1,7 @@
-//Set map to Australia
 var lat = -23.697752;
 var lng = 133.880067;
+var globalMap;
+
 
 $(document).ready(function () {
 
@@ -8,14 +9,17 @@ $(document).ready(function () {
 
   $("#search-by-tag").addClass("active")
   $(".btn-group > .btn").click(function(){
-      $(this).addClass("active").siblings().removeClass("active");
+    $(this).addClass("active").siblings().removeClass("active");
   });
 });
 
 //Defining which search param is selected:
 var searchParam = 'tag'
 
-var globalInfo; // Harrys fucking variable // Ben touch this and you will die !
+
+
+
+var globalInfo;
 
 function getDefaultMapValues() {
   $.ajax({
@@ -28,12 +32,16 @@ function getDefaultMapValues() {
   });
 };
 
+
 function getLocation(hubInfo) {
+
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition (
         function (showPosition) {
+
           var currPosLat = showPosition.coords.latitude;
           var currPosLng = showPosition.coords.longitude;
+
           var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 4,
             center: {lat: lat - 10, lng: lng}
@@ -48,8 +56,6 @@ function getLocation(hubInfo) {
       //    setInterval(function () {
       //      dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
       //    }, 5000);
-
-
         },
         function(error) {
           switch (geoPositionError.code) {
@@ -75,12 +81,12 @@ function getLocation(hubInfo) {
 };
 
 
+
 function dataRequest(map, lat, lng) {
   $.ajax('//api.instagram.com/v1/media/search/?', {
       type: 'GET',
       dataType: 'jsonp',
       data: {
-        distance: 5000,
         count: 10,
         lat: lat,
         lng: lng,
@@ -89,24 +95,23 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
+
           // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.each(info.data, function (itemRecord) {
             // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
           });
           setInstPostMarkers(map, instPosts);
-          // loopData(globalInfo);
-          // chartLoad();
         } //Else no photos show
-       }
+      }
   });
 };
 
 
 
 function setInstPostMarkers(map, instPosts) {
-  console.log(instPosts);
   var markers = [];
+
   _.each(instPosts, function (eachPost, i) {
     var image = {
       url: eachPost[3],
@@ -114,6 +119,7 @@ function setInstPostMarkers(map, instPosts) {
     };
 
     var pos = new google.maps.LatLng(eachPost[0], eachPost[1]);
+
     for (var j = 0; j < markers.length; j++) {
       if (i != j && pos.equals(markers[j].getPosition())) {
           var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
@@ -121,27 +127,16 @@ function setInstPostMarkers(map, instPosts) {
           pos = new google.maps.LatLng(newLat, newLng);
       }
     }
+
     var marker = new google.maps.Marker({
       position: pos,
       map: map,
       icon: image,
-      animation: google.maps.Animation.DROP,
+      // animation: google.maps.Animation.DROP,
       zIndex: 2,
       title: eachPost[2],
       optimized: false      //To allow marker custom in css
     });
-
-
-
-    // var i = 0;
-    // var interval = setInterval(function () {
-
-    //     markers(markers[i]);
-    //     i++;
-
-    //     if (i === markers.length) clearInterval(interval);
-
-    // }, 1000);
 
     // Apply custom css for marker
     var myoverlay = new google.maps.OverlayView();
@@ -179,13 +174,12 @@ function setInstPostMarkers(map, instPosts) {
           console.log(marker);
           //showEmbed(this.link);
     });
+
     google.maps.event.addListener(infowindow,'closeclick',function(){
       map.setZoom(4);
     });
     google.maps.event.addListener(map, 'click', function() {
       infowindow.close();
     });
-
-    markers.push(marker);
   });
 }
