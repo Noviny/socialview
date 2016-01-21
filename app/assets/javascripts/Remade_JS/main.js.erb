@@ -1,3 +1,7 @@
+//Set map to Australia
+var lat = -23.697752;
+var lng = 133.880067;
+
 $(document).ready(function () {
 
   getDefaultMapValues();
@@ -28,9 +32,6 @@ function getLocation(hubInfo) {
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition (
         function (showPosition) {
-          //Set map to Australia
-          var lat = -23.697752;
-          var lng = 133.880067;
           var currPosLat = showPosition.coords.latitude;
           var currPosLng = showPosition.coords.longitude;
           var map = new google.maps.Map(document.getElementById('map'), {
@@ -39,14 +40,13 @@ function getLocation(hubInfo) {
           });
           map.set('styles', mapStyles);
           //Send hub data (lat and lng) to make request in instagram api
-          //** _.each(hubInfo, function (hubData) {
-          //**  dataRequest(map, hubData.latitude, hubData.longitude);
-          //** });
+          _.each(hubInfo, function (hubData) {
+            dataRequest(map, hubData.latitude, hubData.longitude);
+          });
 
         /** TEMPORARY SHOW ONE RECORD **/
-          console.log("hubInfo-Lat: ", hubInfo[0].latitude);
       //    setInterval(function () {
-            dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
+      //      dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
       //    }, 5000);
 
 
@@ -74,7 +74,6 @@ function getLocation(hubInfo) {
 
 };
 
-initAutocomplete();
 
 function dataRequest(map, lat, lng) {
   $.ajax('//api.instagram.com/v1/media/search/?', {
@@ -82,7 +81,7 @@ function dataRequest(map, lat, lng) {
       dataType: 'jsonp',
       data: {
         distance: 5000,
-        count: 100,
+        count: 10,
         lat: lat,
         lng: lng,
         access_token: "<%= ENV['access_token'] %>"
@@ -91,9 +90,9 @@ function dataRequest(map, lat, lng) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
           // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
-          _.map(info.data, function (itemRecord) {
+          _.each(info.data, function (itemRecord) {
             // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
-            instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
+            instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);
           });
           setInstPostMarkers(map, instPosts);
           // loopData(globalInfo);
@@ -106,13 +105,15 @@ function dataRequest(map, lat, lng) {
 
 
 function setInstPostMarkers(map, instPosts) {
+  console.log(instPosts);
   var markers = [];
+  _.each(instPosts, function (eachPost, i) {
     var image = {
-      url: instPosts[3],
+      url: eachPost[3],
       scaledSize: new google.maps.Size(64, 64),
     };
 
-    var pos = new google.maps.LatLng(instPosts[0], instPosts[1]);
+    var pos = new google.maps.LatLng(eachPost[0], eachPost[1]);
     for (var j = 0; j < markers.length; j++) {
       if (i != j && pos.equals(markers[j].getPosition())) {
           var newLat = pos.lat() * (Math.random() * 0.0002 + 1);
@@ -124,11 +125,23 @@ function setInstPostMarkers(map, instPosts) {
       position: pos,
       map: map,
       icon: image,
-  //  animation: google.maps.Animation.BOUNCE,
+      animation: google.maps.Animation.DROP,
       zIndex: 2,
-      title: instPosts[2],
+      title: eachPost[2],
       optimized: false      //To allow marker custom in css
     });
+
+
+
+    // var i = 0;
+    // var interval = setInterval(function () {
+
+    //     markers(markers[i]);
+    //     i++;
+
+    //     if (i === markers.length) clearInterval(interval);
+
+    // }, 1000);
 
     // Apply custom css for marker
     var myoverlay = new google.maps.OverlayView();
@@ -137,9 +150,8 @@ function setInstPostMarkers(map, instPosts) {
     };
     myoverlay.setMap(map);
 
-    var embed = instPosts[2];
+    var embed = eachPost[2];
     embed = embed.match(/\/p\/(.*)\//)[1]
-    console.log(embed);
     // var content = '<div class="infowindow-content"><blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">If only Bradley&#39;s arm was longer. Best photo ever. <a href="https://twitter.com/hashtag/oscars?src=hash">#oscars</a> <a href="http://t.co/C9U5NOtGap">pic.twitter.com/C9U5NOtGap</a></p>&mdash; Ellen DeGeneres (@TheEllenShow) <a href="https://twitter.com/TheEllenShow/status/440322224407314432">March 3, 2014</a></blockquote></div>';
     var content = '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>';
 
@@ -168,10 +180,12 @@ function setInstPostMarkers(map, instPosts) {
           //showEmbed(this.link);
     });
     google.maps.event.addListener(infowindow,'closeclick',function(){
-          map.setZoom(4);
+      map.setZoom(4);
     });
     google.maps.event.addListener(map, 'click', function() {
-          infowindow.close();
+      infowindow.close();
     });
-  markers.push(marker);
+
+    markers.push(marker);
+  });
 }
