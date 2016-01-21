@@ -1,5 +1,7 @@
 var lat = -23.697752;
 var lng = 133.880067;
+var globalMap;
+
 
 
 $(document).ready(function () {
@@ -15,7 +17,10 @@ $(document).ready(function () {
 //Defining which search param is selected:
 var searchParam = 'tag'
 
-var globalInfo; // Harrys fucking variable // Ben touch this and you will die !
+
+
+
+var globalInfo;
 
 function getDefaultMapValues() {
   $.ajax({
@@ -27,6 +32,7 @@ function getDefaultMapValues() {
     }
   });
 };
+
 
 function getLocation(hubInfo) {
 
@@ -75,6 +81,7 @@ function getLocation(hubInfo) {
 
 };
 
+initAutocomplete();
 
 
 function dataRequest(map, lat, lng) {
@@ -91,14 +98,10 @@ function dataRequest(map, lat, lng) {
       success: function(info) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
-          // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.map(info.data, function (itemRecord) {
-            // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts = [itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url];
           });
           setInstPostMarkers(map, instPosts);
-          // loopData(globalInfo);
-          // chartLoad();
         } //Else no photos show
        }
   });
@@ -140,7 +143,6 @@ function setInstPostMarkers(map, instPosts) {
 
     var embed = instPosts[2];
     embed = embed.match(/\/p\/(.*)\//)[1]
-    console.log(embed);
     // var content = '<div class="infowindow-content"><blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">If only Bradley&#39;s arm was longer. Best photo ever. <a href="https://twitter.com/hashtag/oscars?src=hash">#oscars</a> <a href="http://t.co/C9U5NOtGap">pic.twitter.com/C9U5NOtGap</a></p>&mdash; Ellen DeGeneres (@TheEllenShow) <a href="https://twitter.com/TheEllenShow/status/440322224407314432">March 3, 2014</a></blockquote></div>';
     var content = '<iframe src="//www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>';
 
@@ -168,6 +170,7 @@ function setInstPostMarkers(map, instPosts) {
           console.log(marker);
           //showEmbed(this.link);
     });
+
     google.maps.event.addListener(infowindow,'closeclick',function(){
           map.setZoom(4);
     });

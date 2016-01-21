@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
 
+
   resources :searches
   resources :users
   resources :pages
   resources :hubs
+  resources :tweets
 
   get '/test' => 'pages#test'
 
@@ -16,5 +18,6 @@ Rails.application.routes.draw do
   delete '/login' => 'session#destroy'
 
   get '/hub' => 'hubs#index'
+  get '/tweet' => 'tweets#index'
 
 end

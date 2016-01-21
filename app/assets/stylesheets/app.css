@@ -119,6 +119,7 @@ body, html{
 
 /*//// display div post ////*/
 
+
 #Embed {
   text-align:center;
   width:320px;
@@ -126,6 +127,16 @@ body, html{
   min-height: 300px;
   position: absolute;
 }
+
+#results-content {
+  margin-top: 5em;
+  text-align: center;
+}
+
+.close {
+  background-color: white;
+}
+
 #pac-input {
   background-color: #fff;
   font-family: Roboto;
