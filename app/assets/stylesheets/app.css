@@ -53,10 +53,6 @@ body, html{
   margin-top: 150px
 }
 
-#markerLayer {
-  background: pink;
-}
-
 div.gmnoprint {
   opacity: 0 !important;
 }
