@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   def index
-    
+
 
     things = client.search("a", geocode: '37.781157,-122.398720,1mi', result_type: "recent").take(10)
     @tweets = []
