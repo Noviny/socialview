@@ -13,7 +13,7 @@ class TweetsController < ApplicationController
     config = {
       consumer_key: ENV['consumer_key'],
       consumer_secret: ENV['consumer_key'],
-      access_token: ENV['access_token'],
+      access_token: ENV['twitter_access_token'],
       access_token_secret: ENV['access_token_secret'],
     }
 
@@ -33,7 +33,7 @@ class TweetsController < ApplicationController
     config = {
       consumer_key: ENV['consumer_key'],
       consumer_secret: ENV['consumer_key'],
-      access_token: ENV['access_token'],
+      access_token: ENV['twitter_access_token'],
       access_token_secret: ENV['access_token_secret'],
     }
 
