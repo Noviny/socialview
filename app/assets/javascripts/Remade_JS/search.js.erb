@@ -1,5 +1,45 @@
 var globalInfo;
 
+function setToTagsResultPage(instPosts) {
+  $('.-right').addClass('-on');
+  $('#results').empty();
+
+  _.each(instPosts, function (eachPost,i) {
+
+    var result;
+    if (eachPost.location){
+      $('#results').append('<li><a class="internal" data-link= "' + eachPost.link + '" data-latitude="' + eachPost.location.latitude + '" data-longitude="' + eachPost.location.longitude + '"data-url="' + eachPost.images.thumbnail.url +'" href="' +i+ '"><img src="' + eachPost.images.thumbnail.url+ '"> </a></li>');
+    } else {
+      $('#results').append('<li><a class="external" href="' + eachPost.link + '" target="_blank"><img src="' + eachPost.images.thumbnail.url+ '"></a></li>');
+    }
+ });
+}
+
+function receiveTagData (info, success) {
+  if (success === "FAIL") {
+    $('#messageModal').modal('show');
+    return;
+  }
+  // debugger;
+  $('#messageModal').modal('hide')
+
+  if (info.hasOwnProperty('data') && info.data.length > 0) {
+    var instPosts = [];
+    globalInfo = info.data;
+    _.each(info.data, function (itemRecord) {
+      if (itemRecord.location) {
+        instPosts.push([itemRecord]);
+      }
+    });
+    setToTagsResultPage(info.data);
+    loopData(globalInfo); // This is where I populate my chart data varables
+    chartLoad(); // This is when i load the data into the chart and the chart onto the info page
+  } else {
+    $('#messageModal').modal('show');
+  }
+}
+
+
 $(document).ready( function () {
 
   function setSpecificPostMarker(clickElement) {
@@ -48,12 +88,10 @@ $(document).ready( function () {
 
     myoverlay.setMap(map);
 
-
     var embed = link;
     embed = embed.match(/\/p\/(.*)\//)[1]
 
-    var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-        '</div>';
+    var content = '<iframe class="media" src="https://www.instagram.com/p/' + embed + '/embed/?v=6">' + '</iframe>';
 
     var infowindow = new google.maps.InfoWindow({
       content: content
@@ -73,6 +111,7 @@ $(document).ready( function () {
           map.setCenter(pos);
     });
     google.maps.event.addListener(infowindow,'closeclick',function(){
+          map.setCenter({lat: lat - 10, lng: lng});
           map.setZoom(2);
     });
     google.maps.event.addListener(map, 'click', function() {
@@ -106,49 +145,21 @@ $(document).ready( function () {
 
     function searchByLocation(searchVal) {
       mapSearch();
-    };
+    }
 
     function searchByTagName(searchVal) {
+      var ajaxComplete = true;
       $.ajax('//api.instagram.com/v1/tags/' + searchVal + '/media/recent?', {
           type: 'GET',
           dataType: 'jsonp',
-          // timeout: 1000,
+          timeout: 3000,
+          jsonpCallback: 'receiveTagData',
           data: {
             access_token: "<%= ENV['access_token'] %>"
-          },
-          success: function(info) {
-            if (info.hasOwnProperty('data') && info.data.length > 0) {
-              var instPosts = [];
-              globalInfo = info.data;
-              _.each(info.data, function (itemRecord) {
-                if (itemRecord.location) {
-                  instPosts.push([itemRecord]);
-                }
-              });
-              setToTagsResultPage(info.data);
-              loopData(globalInfo); // This is where I populate my chart data varables
-              chartLoad(); // This is when i load the data into the chart and the chart onto the info page
-            } else {
-              $('#messageModal').modal('show');
-            }
           }
-      // }).fail(function (data) {
-      //   $('#messageModal').modal('show');
-      });
-    }
-    function setToTagsResultPage(instPosts) {
-      $('.-right').addClass('-on');
-      $('#results').empty();
-
-      _.each(instPosts, function (eachPost,i) {
-
-        var result;
-        if (eachPost.location){
-          $('#results').append('<li><a class="internal" data-link= "' + eachPost.link + '" data-latitude="' + eachPost.location.latitude + '" data-longitude="' + eachPost.location.longitude + '"data-url="' + eachPost.images.thumbnail.url +'" href="' +i+ '"><img src="' + eachPost.images.thumbnail.url+ '"> </a></li>');
-        } else {
-          $('#results').append('<li><a class="external" href="' + eachPost.link + '" target="_blank"><img src="' + eachPost.images.thumbnail.url+ '"></a></li>');
-        }
-     });
+       }).fail(function (data) {
+        receiveTagData(data, "FAIL");
+       });
     }
 
 
@@ -163,9 +174,10 @@ $(document).ready( function () {
           success: function(userInfo) {
             if (userInfo.hasOwnProperty('data') && userInfo.data.length > 0) {
               var usersList = [];
+              console.log(userInfo.data);
               _.each(userInfo.data, function (userItemRecord) {
                 if (userItemRecord.full_name) {
-                  usersList.push([userItemRecord.id, userItemRecord.full_name]);
+                  usersList.push([userItemRecord.id, userItemRecord.username, userItemRecord.full_name]);
                 }
               });
               setToUsersResultPage(usersList);
@@ -178,7 +190,7 @@ $(document).ready( function () {
       $('.-right').addClass('-on');
       $('#results').empty();
       _.each(usersList, function (eachUser) {
-        $('#results').append('<li><a id= "' + eachUser[0] + '" href="' +eachUser[0]+ '">' + eachUser[1]+ '</a></li>');
+        $('#results').append('<li><a id= "' + eachUser[0] + '" href="' +eachUser[0]+ '">' + eachUser[1] + ' (' + eachUser[2] + ')</a></li>');
       });
       linkUserInstActivities();
     }
@@ -267,6 +279,7 @@ $(document).ready( function () {
 
         google.maps.event.addListener(infowindow,'closeclick',function(){
               map.setZoom(2);
+              map.setCenter({lat: lat - 10, lng: lng});
         });
         google.maps.event.addListener(map, 'click', function() {
               infowindow.close();
