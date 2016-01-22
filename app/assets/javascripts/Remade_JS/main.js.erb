@@ -89,6 +89,7 @@ function dataRequest(map, lat, lng) {
         access_token: "<%= ENV['access_token'] %>"
       },
       success: function(info) {
+        console.log("Info: ", info);
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
 
