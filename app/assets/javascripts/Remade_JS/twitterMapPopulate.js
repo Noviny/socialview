@@ -13,7 +13,7 @@ function getTweets() {
       var twits = [];
           _.map(tweets, function (tweet) {
             // console.log(tweet.geo.coordinates[0], ", ", tweet.geo.coordinates[1])
-            twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], "NOT A LINK", "https://placebearcom/100/100"]);
+            twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.url.toString(), "http://designshack.net/wp-content/uploads/larrybird-2.jpg"]);
           });
       // _.each(tweets.tweets, function (tweet) {
       //   setTweetsMarkers(tweet)
@@ -35,10 +35,10 @@ var map;
       map.set('styles', mapStyles);
 
       var markers = [];
-
+      console.log(tweets)
       _.each(tweets, function (twit) {
         var image = {
-          url: "https://placebear.com/100/100",
+          url: "https://cdn1.iconfinder.com/data/icons/iconza-circle-social/64/697029-twitter-512.png",
           scaledSize: new google.maps.Size(64, 64),
         };
 
@@ -63,15 +63,15 @@ var map;
         // Apply custom css for marker
         var myoverlay = new google.maps.OverlayView();
         myoverlay.draw = function () {
-           this.getPanes().markerLayer.id='markerLayer';
+           this.getPanes().markerLayer.id='twitterMarkerLayer';
         };
         myoverlay.setMap(map);
 
         google.maps.event.addListener(map, 'click', function() {
               infowindow.close();
         });
-
-        generateEmbedKey("things", marker, map, pos)
+        console.log("twit is ", twit)
+        generateEmbedKey("things", marker, map, pos, twit)
 
         markers.push(marker);
       });

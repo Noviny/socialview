@@ -64,6 +64,16 @@ body, html{
 }
 
 
+#twitterMarkerLayer img {
+  width: 85% !important;
+  height: 85% !important;
+/*  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;*/
+}
+
+
 /*@-moz-keyframes blinker {
     0% { opacity: 1.0; }
     50% { opacity: 0.0; }

@@ -6,11 +6,12 @@ var twitterSearch = function (searchFor) {
       searchVal: searchVal,
     },
     success: function (info) {
+      debugger;
       data = info.tweets
       console.log(data)
       var twits = []
       _.map(data, function (tweet) {
-        twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.id.toString(), "https://placebearcom/100/100"]);
+        twits.push([tweet.geo.coordinates[0], tweet.geo.coordinates[1], tweet.url.toString(), "http://designshack.net/wp-content/uploads/larrybird-2.jpg"]);
       })
 
       setTweetsMarkers(twits)
@@ -21,13 +22,13 @@ var twitterSearch = function (searchFor) {
 
 // Get an oembed thingy
 
-var generateEmbedKey = function (embedKey, marker, map, pos) {
+var generateEmbedKey = function (embedKey, marker, map, pos, twit) {
   $.ajax('tweet/embed', {
     type: 'POST',
     // method: 'POST',
     dataType: 'json',
     data: {
-      twitID: "250075927172759552"
+      twitID: twit[2]
     },
     success: function (info) {
       console.log(" This is the embed ", info.tweet)
