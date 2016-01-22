@@ -4,7 +4,7 @@ var center;
 var globalInfo;
 
 $(document).ready(function () {
-    $('ul.dropdown-menu li').on('click', function() {
+    $('#current-location-search').on('click', function() {
         var target = $(this).find("a").text();
 
         mapSearchLat = window.currPosLat
@@ -44,10 +44,11 @@ function mapSearchShow() {
         lng: mapSearchLng,
         access_token: "<%= ENV['access_token'] %>"
       },
-      success: function(info) {
-        if (info.hasOwnProperty('data') && info.data.length > 0) {
-                setPostMarkers(info.data);
-                    globalInfo = info.data;
+      success: function(infoSearch) {
+        if (infoSearch.hasOwnProperty('data') && infoSearch.data.length > 0) {
+
+                setPostMarkers(infoSearch.data);
+                    globalInfo = infoSearch.data;
                     loopData(globalInfo);
                     chartLoad();
 
@@ -57,6 +58,7 @@ function mapSearchShow() {
        }
     });
   }
+
     function setPostMarkers(instPosts) {
       var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,

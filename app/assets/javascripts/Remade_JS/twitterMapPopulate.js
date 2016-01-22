@@ -3,7 +3,7 @@ var tweets;
 
 function getTweets() {
   $.ajax({
-    url: 'tweets',
+    url: 'tweet',
     type: 'GET',
     dataType: 'json',
     success: function (tweetInfo) {
@@ -67,50 +67,12 @@ var map;
         };
         myoverlay.setMap(map);
 
-        var embed = twit[2];
-        embed = embed.match(/\/p\/(.*)\//)[1]
-
-        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-            '</div>';
-
-        var infowindow = new google.maps.InfoWindow({
-          content: content
-        });
-        var smoothZoom = function(map, max, cnt) {
-          if (cnt >= max) {
-              return;
-          }
-          else {
-              z = google.maps.event.addListener(map, 'zoom_changed', function(event){
-                  google.maps.event.removeListener(z);
-                  smoothZoom(map, max, cnt + 1);
-                  map.setCenter(pos);
-                  console.log('zoom change');
-              });
-              setTimeout(function(){map.setZoom(cnt)}, 100);
-          }
-        };
-        // Click event on Instagram Image
-        google.maps.event.addListener(
-            marker, 'click',
-            function() {
-              infowindow.open(map,marker);
-              map.setZoom(16);
-              map.setCenter(pos);
-        });
-        google.maps.event.addListener(
-            marker, 'dblclick',
-            function(){
-            console.log('image click')
-            infowindow.open(map,marker);
-            smoothZoom(map, 16, map.getZoom());
-        });
-        google.maps.event.addListener(infowindow,'closeclick',function(){
-              map.setZoom(2);
-        });
         google.maps.event.addListener(map, 'click', function() {
               infowindow.close();
         });
+
+        generateEmbedKey("things", marker, map, pos)
+
         markers.push(marker);
       });
     }
