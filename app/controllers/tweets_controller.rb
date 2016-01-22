@@ -21,10 +21,10 @@ class TweetsController < ApplicationController
 
   def search
     config = {
-      consumer_key: "3LFlsaB9Pcu5CxunbbDMaSj0q",
-      consumer_secret: "85pYc6Zj2X7Pro7fsq6O42XYR96uESoG6x6o4brv7vWVOZzqli",
-      access_token: "5629842-WFWEexpyKZZdIOD8XF97TUwdczkMAlWV84xxaUcxR5",
-      access_token_secret: "zm5HFu6LwhPljLzj0bqdvQe5tmbQkwd8JANTsxL2g2tco",
+      consumer_key: ENV['consumer_key'],
+      consumer_secret: ENV['consumer_key'],
+      access_token: ENV['twitter_access_token'],
+      access_token_secret: ENV['access_token_secret'],
     }
 
     client = Twitter::REST::Client.new(config)
@@ -46,10 +46,10 @@ class TweetsController < ApplicationController
 
   def embed
     config = {
-      consumer_key: "3LFlsaB9Pcu5CxunbbDMaSj0q",
-      consumer_secret: "85pYc6Zj2X7Pro7fsq6O42XYR96uESoG6x6o4brv7vWVOZzqli",
-      access_token: "5629842-WFWEexpyKZZdIOD8XF97TUwdczkMAlWV84xxaUcxR5",
-      access_token_secret: "zm5HFu6LwhPljLzj0bqdvQe5tmbQkwd8JANTsxL2g2tco",
+      consumer_key: ENV['consumer_key'],
+      consumer_secret: ENV['consumer_key'],
+      access_token: ENV['twitter_access_token'],
+      access_token_secret: ENV['access_token_secret'],
     }
 
     client = Twitter::REST::Client.new(config)

@@ -53,25 +53,20 @@ body, html{
   margin-top: 150px
 }
 
-#markerLayer {
-  background: pink;
-}
-
 div.gmnoprint {
   opacity: 0 !important;
 }
 
 #markerLayer img {
   border: 2px solid #333 !important;
-  width: 85% !important;
-  height: 85% !important;
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 100%;
 /*  -webkit-animation-name: blinker;
   -webkit-animation-duration: 2s;
   -webkit-animation-timing-function: linear;
   -webkit-animation-iteration-count: infinite;*/
 }
-
 
 #twitterMarkerLayer img {
   width: 85% !important;
