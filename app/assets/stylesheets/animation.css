@@ -36,6 +36,7 @@
 .overlay {
   position: absolute;
   z-index: 99999;
+  overflow-y: scroll;
 }
 .overlay-top {
   top: -100%;

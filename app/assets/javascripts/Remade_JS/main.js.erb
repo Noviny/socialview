@@ -49,13 +49,11 @@ function getLocation(hubInfo) {
           map.set('styles', mapStyles);
           //Send hub data (lat and lng) to make request in instagram api
           _.each(hubInfo, function (hubData) {
+      //    setInterval(function () {
+      //      dataRequest(map, hubData.latitude, hubData.longitude);
+      //    }, 5000);
             dataRequest(map, hubData.latitude, hubData.longitude);
           });
-
-        /** TEMPORARY SHOW ONE RECORD **/
-      //    setInterval(function () {
-      //      dataRequest(map, hubInfo[0].latitude, hubInfo[0].longitude);
-      //    }, 5000);
         },
         function(error) {
           switch (geoPositionError.code) {
@@ -85,7 +83,7 @@ function dataRequest(map, lat, lng) {
       type: 'GET',
       dataType: 'jsonp',
       data: {
-        count: 10,
+        count: 20,
         lat: lat,
         lng: lng,
         access_token: "<%= ENV['access_token'] %>"
@@ -109,8 +107,10 @@ function dataRequest(map, lat, lng) {
 
 function setInstPostMarkers(map, instPosts) {
   var markers = [];
+  var k = 0;
 
   _.each(instPosts, function (eachPost, i) {
+    setTimeout (function () {
     var image = {
       url: eachPost[3],
       scaledSize: new google.maps.Size(64, 64),
@@ -130,7 +130,7 @@ function setInstPostMarkers(map, instPosts) {
       position: pos,
       map: map,
       icon: image,
-      // animation: google.maps.Animation.DROP,
+      animation: google.maps.Animation.DROP,
       zIndex: 2,
       title: eachPost[2],
       optimized: false      //To allow marker custom in css
@@ -169,15 +169,15 @@ function setInstPostMarkers(map, instPosts) {
           infowindow.open(map,marker);
           map.setZoom(15);
           map.setCenter(pos);
-          console.log(marker);
-          //showEmbed(this.link);
     });
 
     google.maps.event.addListener(infowindow,'closeclick',function(){
       map.setZoom(4);
+      map.setCenter({lat: lat - 10, lng: lng});
     });
     google.maps.event.addListener(map, 'click', function() {
       infowindow.close();
     });
+  }, i * 400);
   });
 }

@@ -102,8 +102,7 @@ function mapSearchShow() {
         var embed = eachPost.link;
         embed = embed.match(/\/p\/(.*)\//)[1]
 
-        var content = '<div id="iw_container">' + '<iframe src="https://www.instagram.com/p/' + embed + '/embed/?v=6">'+ '</iframe>' +
-            '</div>';
+        var content = '<iframe class="media" src="https://www.instagram.com/p/' + embed + '/embed/?v=6">' + '</iframe>';
 
         var infowindow = new google.maps.InfoWindow({
           content: content
@@ -118,6 +117,7 @@ function mapSearchShow() {
         });
         google.maps.event.addListener(infowindow,'closeclick',function(){
               map.setZoom(14);
+              map.setCenter({lat: lat - 10, lng: lng});
         });
         google.maps.event.addListener(map, 'click', function() {
               infowindow.close();
