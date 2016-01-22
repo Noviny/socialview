@@ -53,6 +53,14 @@ body, html{
   margin-top: 150px
 }
 
+#markerLayer {
+  background: pink;
+}
+
+div.gmnoprint {
+  opacity: 0 !important;
+}
+
 #markerLayer img {
   border: 2px solid #333 !important;
   width: 100% !important;
@@ -254,3 +262,6 @@ canvas {
   padding-top: 10px;
 }
 
+.gmnoprint {
+  opacity: 0;
+}

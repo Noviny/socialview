@@ -39,8 +39,8 @@ function getLocation(hubInfo) {
       navigator.geolocation.getCurrentPosition (
         function (showPosition) {
 
-          var currPosLat = showPosition.coords.latitude;
-          var currPosLng = showPosition.coords.longitude;
+          window.currPosLat = showPosition.coords.latitude;
+          window.currPosLng = showPosition.coords.longitude;
 
           var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 4,
