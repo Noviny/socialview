@@ -1,6 +1,7 @@
 body, html{
   padding: none;
   margin: none;
+  overflow: hidden;
 }
 /*//// MAP MAIN VIEW ////*/
 
@@ -50,6 +51,14 @@ body, html{
   text-align: center;
   margin: 0 auto;
   margin-top: 150px
+}
+
+#markerLayer {
+  background: pink;
+}
+
+div.gmnoprint {
+  opacity: 0 !important;
 }
 
 #markerLayer img {
@@ -220,9 +229,33 @@ canvas {
 .photo-result {
   width: 500px;
   height: 500px;
-  overflow: hidden;
+  margin: 0 auto;
 }
 
+.photo-result img {
+  width: 10em;
+  height: 10em;
+}
+
+.photo-result li {
+  float: left;
+  list-style: none;
+  padding: 1em;
+}
+
+#results a.internal img {
+  border: 1px solid blue;
+}
+
+#results a.external img {
+  border: 1px solid red;
+}
+
+#results a:hover {
+  text-decoration: none;
+  background: none;
+  color: orange;
+}
 
 .media {
   min-height: 380px;
@@ -232,13 +265,14 @@ canvas {
 .gm-style-iw {
   width: 310px !important;
   left: 18px !important;
-<<<<<<< HEAD
 }
 
 .centered {
   text-align: center;
   margin: 0 auto;
   padding-top: 10px;
-=======
->>>>>>> 3451617b9ffd2f1468e16dc184f8f2cb42c3834b
+}
+
+.gmnoprint {
+  opacity: 0;
 }
