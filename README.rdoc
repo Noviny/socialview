@@ -1,7 +1,0 @@
-Search field slideout
-Search sidebar (radio buttons etc?)
-
-
-User login finalized
-Recent Searches
-Trending
