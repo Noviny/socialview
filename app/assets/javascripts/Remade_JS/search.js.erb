@@ -136,7 +136,6 @@ $(document).ready( function () {
     e.preventDefault();
     searchVal = $('#searchValue').val();
     if ( $('#search-by-instagram').hasClass("active") ) {
-      console.log("INST");
       if ( $("#search-by-tag").hasClass("active") ) {
         searchByTagName(searchVal);
       } else if ( $("#search-by-location").hasClass("active") ) {
@@ -145,7 +144,7 @@ $(document).ready( function () {
         searchByUserName(searchVal);
       }
     } else {
-      console.log("twi");
+      // console.log("twi");
       twitterSearch(searchVal)
     }
 

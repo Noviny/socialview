@@ -92,7 +92,6 @@ function dataRequest(map, lat, lng) {
         if (info.hasOwnProperty('data') && info.data.length > 0) {
           var instPosts = [];
 
-          // globalInfo = info.data // Harry's data, I don't fuck with data, that fucks with people that I dont fuck with, remember this.
           _.each(info.data, function (itemRecord) {
             // _.omit || _.permit // This will be how we could turn the data we use into an object later so its more readable and clean in the future // From jack
             instPosts.push([itemRecord.location.latitude, itemRecord.location.longitude, itemRecord.link, itemRecord.images.thumbnail.url]);

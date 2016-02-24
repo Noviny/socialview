@@ -16,15 +16,16 @@ function mapSearch() {
     // map.controls.push(input);
      geocoder = new google.maps.Geocoder();
      var address = $('#searchValue').val();
+     // console.log('address = ', address);
      geocoder.geocode( { 'address': address}, function(results, status)
         {
             if (status == google.maps.GeocoderStatus.OK){
-                console.log(results[0].geometry.location);
-                mapSearchLat = (results[0].geometry.location.G);
-                mapSearchLng = (results[0].geometry.location.K);
-                center =  results[0].geometry.location;
-                console.log(mapSearchLat);
-                console.log(mapSearchLng);
+                // console.log('result = ', results[0].geometry);
+                mapSearchLat = ('mapSearchLat = ', results[0].geometry.viewport.O.O);
+                mapSearchLng = ('mapSearchLng = ', results[0].geometry.viewport.j.j);
+                center =  results[0].geometry.viewport.O.O;
+                // console.log(mapSearchLat);
+                // console.log(mapSearchLng);
                 mapSearchShow();
             }else{
                 alert("Location Search was not successful for the following reason: " + status);
@@ -53,7 +54,8 @@ function mapSearchShow() {
                     chartLoad();
 
         }else {
-            console.log('not working')
+          $('#messageModal').modal('show');
+            // console.log('not working')
         } //Else no photos show
        }
     });

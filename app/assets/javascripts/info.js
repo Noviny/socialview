@@ -9,13 +9,9 @@ var loopData = function (globalInfo){
     chartClear();
   _.each(globalInfo, function(value){
 
-    console.log("Chart Data ready to fucking rock!");
-
-
     time.push(value.created_time);
     likes.push(value.likes.count);
     comments.push(value.comments.count);
-
 
   });
 
@@ -23,7 +19,7 @@ var loopData = function (globalInfo){
   timeConvert(time);
   chartData.labels = convertedTime.reverse();
 
-  console.log("The chart time has been converted FUCKER!");1
+  console.log("The chart time has been converted");
 }
 
 // Function to convert system time into human time for the chart
